@@ -1,0 +1,44 @@
+{
+    "tabs": [
+        {
+            "name": "home",
+            "button_tab": {
+                "icon": "home",
+                "name": "home"
+            }
+        },
+        {
+            "name": "posts",
+            "button_tab": {
+                "icon": "posts",
+                "name": "posts"
+            }
+        },
+        {
+            "name": "events",
+            "button_tab": {
+                "icon": "events",
+                "name": "events"
+            }
+        },
+        {
+            "name": "my_account",
+            "button_tab": {
+                "icon": "home",
+                "name": "my_account"
+            }
+        }
+    ],
+    "categories": [
+        {
+            "id": "1",
+            "name": "crescimento",
+            "color": "#6BBE76"
+        },
+        {
+            "id": "2",
+            "name": "jejum",
+            "color": "#FFFF00"
+        }
+    ]
+}
