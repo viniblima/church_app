@@ -1,14 +1,16 @@
 import 'package:church_app/controllers/config.controller.dart';
+import 'package:church_app/models/product.model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../models/post.model.dart';
 import 'rate_badge.widget.dart';
 
 class PostCardVertical extends StatelessWidget {
-  final Post post;
+  final Product product;
   final Function onPressLike;
   const PostCardVertical({
-    required this.post,
+    required this.product,
     required this.onPressLike,
     Key? key,
   }) : super(key: key);
@@ -20,7 +22,9 @@ class PostCardVertical extends StatelessWidget {
         bottom: 16.0,
       ),
       child: TextButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.toNamed('/detail_product');
+        },
         style: ButtonStyle(
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
@@ -40,19 +44,22 @@ class PostCardVertical extends StatelessWidget {
               borderRadius: BorderRadius.circular(
                 16.0,
               ),
-              child: FadeInImage(
-                height: 140,
-                width: 140,
-                fit: BoxFit.cover,
-                imageErrorBuilder: (BuildContext context, Object exception,
-                    StackTrace? stackTrace) {
-                  return Image.asset('assets/images/placeholder.jpg');
-                },
-                image: const NetworkImage(
-                  'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/A_small_cup_of_coffee.JPG/1280px-A_small_cup_of_coffee.JPG',
-                ),
-                placeholder: const AssetImage(
-                  'assets/images/placeholder.jpg',
+              child: Hero(
+                tag: 'tag${product.id}',
+                child: FadeInImage(
+                  height: 140,
+                  width: 140,
+                  fit: BoxFit.cover,
+                  imageErrorBuilder: (BuildContext context, Object exception,
+                      StackTrace? stackTrace) {
+                    return Image.asset('assets/images/placeholder.jpg');
+                  },
+                  image: const NetworkImage(
+                    'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/A_small_cup_of_coffee.JPG/1280px-A_small_cup_of_coffee.JPG',
+                  ),
+                  placeholder: const AssetImage(
+                    'assets/images/placeholder.jpg',
+                  ),
                 ),
               ),
             ),
@@ -63,12 +70,12 @@ class PostCardVertical extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 RateBadge(
-                  rate: post.rate,
+                  rate: product.rate,
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 16),
                   child: Text(
-                    post.name,
+                    product.name,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -79,7 +86,7 @@ class PostCardVertical extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(top: 16),
                   child: Text(
-                    post.category.name,
+                    product.category.name,
                     style: TextStyle(
                       fontSize: 14,
                       color: Config.colors[ColorVariables.black]!,

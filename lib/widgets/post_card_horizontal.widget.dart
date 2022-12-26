@@ -1,14 +1,15 @@
+import 'package:church_app/models/product.model.dart';
+import 'package:church_app/widgets/like_button.widget.dart';
 import 'package:church_app/widgets/rate_badge.widget.dart';
 import 'package:flutter/material.dart';
 
-import '../controllers/config.controller.dart';
 import '../models/post.model.dart';
 
 class PostCardHorizontal extends StatelessWidget {
-  final Post post;
+  final Product product;
   final Function onPressLike;
   const PostCardHorizontal({
-    required this.post,
+    required this.product,
     required this.onPressLike,
     Key? key,
   }) : super(key: key);
@@ -56,7 +57,7 @@ class PostCardHorizontal extends StatelessWidget {
                   right: 4,
                   top: 4,
                   child: RateBadge(
-                    rate: post.rate,
+                    rate: product.rate,
                   ),
                 ),
               ],
@@ -65,7 +66,7 @@ class PostCardHorizontal extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(top: 4.0, left: 4.0),
             child: Text(
-              post.name,
+              product.name,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
@@ -74,7 +75,7 @@ class PostCardHorizontal extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(top: 4.0, left: 4.0),
             child: Text(
-              post.category.name,
+              product.category.name,
               style: const TextStyle(fontSize: 12),
             ),
           ),
@@ -82,42 +83,9 @@ class PostCardHorizontal extends StatelessWidget {
             width: 140,
             height: 50,
             alignment: Alignment.centerRight,
-            child: SizedBox(
-              height: 40,
-              width: 40,
-              child: TextButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40.0),
-                    ),
-                  ),
-                  overlayColor: MaterialStateProperty.resolveWith<Color>(
-                    (states) => post.liked
-                        ? Config.colors[ColorVariables.white]!
-                        : Config.colors[ColorVariables.primary]!,
-                  ),
-                  backgroundColor: post.liked
-                      ? MaterialStateProperty.resolveWith<Color>(
-                          (states) => post.liked
-                              ? Config.colors[ColorVariables.primary]!
-                              : Config.colors[ColorVariables.white]!,
-                        )
-                      : MaterialStateProperty.resolveWith<Color>(
-                          (states) => Config.colors[ColorVariables.white]!,
-                        ),
-                ),
-                onPressed: () => onPressLike(),
-                child: Center(
-                  child: Icon(
-                    Icons.favorite,
-                    size: 20,
-                    color: post.liked
-                        ? Config.colors[ColorVariables.white]
-                        : Config.colors[ColorVariables.black],
-                  ),
-                ),
-              ),
+            child: LikeButton(
+              onPressLike: onPressLike,
+              liked: product.liked,
             ),
           ),
         ],

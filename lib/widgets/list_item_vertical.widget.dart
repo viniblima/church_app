@@ -1,17 +1,18 @@
-import 'package:church_app/models/product.model.dart';
 import 'package:church_app/widgets/post_card_horizontal.widget.dart';
+import 'package:church_app/widgets/post_card_vertical.widget.dart';
 import 'package:flutter/material.dart';
 
 import '../models/post.model.dart';
+import '../models/product.model.dart';
 
-class ListItemHorizontal extends StatefulWidget {
-  const ListItemHorizontal({Key? key}) : super(key: key);
+class ListItemVertical extends StatefulWidget {
+  const ListItemVertical({Key? key}) : super(key: key);
 
   @override
-  State<ListItemHorizontal> createState() => _ListItemHorizontalState();
+  State<ListItemVertical> createState() => _ListItemVerticalState();
 }
 
-class _ListItemHorizontalState extends State<ListItemHorizontal> {
+class _ListItemVerticalState extends State<ListItemVertical> {
   //TODO: Substituir pela lista de post da API
   static List<Map<String, dynamic>> list = [
     {
@@ -94,15 +95,13 @@ class _ListItemHorizontalState extends State<ListItemHorizontal> {
       margin: const EdgeInsets.only(
         top: 32,
       ),
-      height: 240,
-      child: ListView(
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
         children: List.generate(
           list.length,
           (int index) {
             Map<String, dynamic> product = list[index];
-            return PostCardHorizontal(
+            return PostCardVertical(
               product: Product.fromMap(product),
               onPressLike: () => onPressLike(
                 index: index,
