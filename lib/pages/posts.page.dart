@@ -1,5 +1,6 @@
 import 'package:church_app/widgets/categories_slider.widget.dart';
 import 'package:church_app/widgets/list_posts_horizontal.widget.dart';
+import 'package:church_app/widgets/list_posts_vertical.widget.dart';
 import 'package:church_app/widgets/search_posts.widget.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +21,7 @@ class _PostsPageState extends State<PostsPage> {
             SearchPosts(),
             CategoriesSlider(),
             ListPostsHorizontal(),
+            ListPostsVertical(),
           ],
         ),
       ),
