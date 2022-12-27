@@ -1,7 +1,14 @@
+import 'package:church_app/controllers/config.controller.dart';
+import 'package:church_app/widgets/about_product.widget.dart';
+import 'package:church_app/widgets/add_to_cart_button.widget.dart';
+import 'package:church_app/widgets/cart_button.widget.dart';
 import 'package:church_app/widgets/like_button.widget.dart';
+import 'package:church_app/widgets/size_slider.widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
+
+import '../models/product.model.dart';
+import '../widgets/custom_back_button.widget.dart';
 
 class DetailProductPage extends StatefulWidget {
   const DetailProductPage({Key? key}) : super(key: key);
@@ -11,9 +18,11 @@ class DetailProductPage extends StatefulWidget {
 }
 
 class _DetailProductPageState extends State<DetailProductPage> {
+  late Product product;
+
   @override
   void initState() {
-    // TODO: implement initState
+    product = Get.arguments['product'];
     super.initState();
   }
 
@@ -24,29 +33,58 @@ class _DetailProductPageState extends State<DetailProductPage> {
         slivers: [
           SliverAppBar(
             expandedHeight: 300,
+            toolbarHeight: 60,
             pinned: true,
             floating: true,
+            leading: const Center(
+              child: SizedBox(
+                width: 40,
+                height: 40,
+                child: CustomBackButton(),
+              ),
+            ),
             actions: [
-              SizedBox(
-                width: 55,
-                child: LikeButton(
-                  onPressLike: () {},
-                  liked: true,
+              Center(
+                child: SizedBox(
+                  width: 40,
+                  height: 40,
+                  child: LikeButton(
+                    onPressLike: () {},
+                    liked: true,
+                  ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
-              )
+              ),
+              const Center(
+                child: SizedBox(
+                  width: 40,
+                  height: 40,
+                  child: CartButton(),
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
             ],
             flexibleSpace: FlexibleSpaceBar(
+              titlePadding: const EdgeInsets.symmetric(horizontal: 60),
               title: InvisibleExpandedHeader(
-                child: Text(
-                  'Global Iq Test for all students in the world',
-                  style: TextStyle(color: Colors.black),
+                child: Container(
+                  height: 60,
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    product.name,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                    ),
+                  ),
                 ),
               ),
               background: Hero(
-                tag: 'tag0',
+                tag: 'tag${product.id}',
                 child: FadeInImage(
                   height: 140,
                   width: 140,
@@ -67,15 +105,54 @@ class _DetailProductPageState extends State<DetailProductPage> {
             //collapsedHeight: 20,
           ),
           SliverFillRemaining(
+            hasScrollBody: true,
+            fillOverscroll: true,
             child: Container(
-              decoration: BoxDecoration(
-                color: Colors.purple,
-                borderRadius: BorderRadius.circular(
-                  8.0,
-                ),
-              ),
-              child: Center(
-                child: Text("data"),
+              color: Config.colors[ColorVariables.backgroundGray],
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: ListView(
+                physics: const NeverScrollableScrollPhysics(),
+                children: <Widget>[
+                  Container(
+                    margin: const EdgeInsets.only(top: 8),
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Config.colors[ColorVariables.highlightGray],
+                      borderRadius: BorderRadius.circular(
+                        32.0,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Config.colors[ColorVariables.highlightGray],
+                          ),
+                          child: const Text('Coffee'),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Config.colors[ColorVariables.highlightGray],
+                          ),
+                          child: const Text('Chocolate'),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Config.colors[ColorVariables.highlightGray],
+                          ),
+                          child: const Text('Medium roasted'),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizeSelector(),
+                  const AboutProduct(),
+                  AddToCartButton(
+                    product: product,
+                    onPress: () {},
+                  )
+                ],
               ),
             ),
           )
@@ -105,10 +182,10 @@ class InvisibleExpandedHeader extends StatefulWidget {
     Key? key,
     required this.child,
   }) : super(key: key);
+
   @override
-  _InvisibleExpandedHeaderState createState() {
-    return _InvisibleExpandedHeaderState();
-  }
+  State<InvisibleExpandedHeader> createState() =>
+      _InvisibleExpandedHeaderState();
 }
 
 class _InvisibleExpandedHeaderState extends State<InvisibleExpandedHeader> {
@@ -152,7 +229,6 @@ class _InvisibleExpandedHeaderState extends State<InvisibleExpandedHeader> {
 
   @override
   Widget build(BuildContext context) {
-    print(_visible);
     return Visibility(
       visible: _visible ?? false,
       child: widget.child,

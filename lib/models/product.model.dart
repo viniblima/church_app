@@ -6,6 +6,8 @@ class Product {
   late Category category;
   late double rate;
   late bool liked;
+  late double price;
+  late int quantity;
 
   Product({
     required this.id,
@@ -13,6 +15,8 @@ class Product {
     required this.category,
     required this.rate,
     required this.liked,
+    required this.price,
+    required this.quantity,
   });
 
   Product.fromMap(Map<String, dynamic> json) {
@@ -21,5 +25,7 @@ class Product {
     category = Category.fromMap(json['category']);
     rate = json['rate'];
     liked = json['liked'];
+    price = json['price'];
+    quantity = json['quantity'];
   }
 }

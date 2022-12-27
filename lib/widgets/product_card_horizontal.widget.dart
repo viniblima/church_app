@@ -1,14 +1,13 @@
+import 'package:church_app/models/product.model.dart';
 import 'package:church_app/widgets/like_button.widget.dart';
 import 'package:church_app/widgets/rate_badge.widget.dart';
 import 'package:flutter/material.dart';
 
-import '../models/post.model.dart';
-
-class PostCardHorizontal extends StatelessWidget {
-  final Post post;
+class ProductCardHorizontal extends StatelessWidget {
+  final Product product;
   final Function onPressLike;
-  const PostCardHorizontal({
-    required this.post,
+  const ProductCardHorizontal({
+    required this.product,
     required this.onPressLike,
     Key? key,
   }) : super(key: key);
@@ -56,7 +55,7 @@ class PostCardHorizontal extends StatelessWidget {
                   right: 4,
                   top: 4,
                   child: RateBadge(
-                    rate: post.rate,
+                    rate: product.rate,
                   ),
                 ),
               ],
@@ -65,7 +64,7 @@ class PostCardHorizontal extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(top: 4.0, left: 4.0),
             child: Text(
-              post.name,
+              product.name,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
@@ -74,7 +73,7 @@ class PostCardHorizontal extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(top: 4.0, left: 4.0),
             child: Text(
-              post.category.name,
+              product.category.name,
               style: const TextStyle(fontSize: 12),
             ),
           ),
@@ -84,7 +83,7 @@ class PostCardHorizontal extends StatelessWidget {
             alignment: Alignment.centerRight,
             child: LikeButton(
               onPressLike: onPressLike,
-              liked: post.liked,
+              liked: product.liked,
             ),
           ),
         ],

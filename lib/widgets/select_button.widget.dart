@@ -1,16 +1,17 @@
 import 'package:church_app/controllers/config.controller.dart';
-import 'package:church_app/models/category.model.dart';
 import 'package:flutter/material.dart';
 
-class CategoryButton extends StatelessWidget {
+class SelectButton extends StatelessWidget {
   final Function onPress;
-  final Category category;
   final bool selected;
+  final String text;
+  final bool bold;
 
-  const CategoryButton({
-    required this.category,
+  const SelectButton({
+    required this.text,
     required this.onPress,
     required this.selected,
+    this.bold = true,
     Key? key,
   }) : super(key: key);
 
@@ -47,10 +48,10 @@ class CategoryButton extends StatelessWidget {
         onPressed: () => onPress(),
         child: Center(
           child: Text(
-            category.name,
+            text,
             style: TextStyle(
                 fontSize: 14,
-                fontWeight: FontWeight.bold,
+                fontWeight: bold ? FontWeight.bold : FontWeight.normal,
                 color: selected
                     ? Config.colors[ColorVariables.white]
                     : Config.colors[ColorVariables.black]),

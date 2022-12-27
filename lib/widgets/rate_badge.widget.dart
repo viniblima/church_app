@@ -1,7 +1,5 @@
 import 'package:church_app/controllers/config.controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class RateBadge extends StatelessWidget {
   final double rate;
@@ -11,7 +9,7 @@ class RateBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 40,
-      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
       decoration: BoxDecoration(
         color: Config.colors[ColorVariables.secondary],
         borderRadius: BorderRadius.circular(12.0),

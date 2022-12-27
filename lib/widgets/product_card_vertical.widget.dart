@@ -1,14 +1,15 @@
 import 'package:church_app/controllers/config.controller.dart';
+import 'package:church_app/models/product.model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import '../models/post.model.dart';
 import 'rate_badge.widget.dart';
 
-class PostCardVertical extends StatelessWidget {
-  final Post post;
+class ProductCardVertical extends StatelessWidget {
+  final Product product;
   final Function onPressLike;
-  const PostCardVertical({
-    required this.post,
+  const ProductCardVertical({
+    required this.product,
     required this.onPressLike,
     Key? key,
   }) : super(key: key);
@@ -21,7 +22,9 @@ class PostCardVertical extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: () {
-          //Get.toNamed('/detail_product');
+          Get.toNamed('/detail_product', arguments: {
+            'product': product,
+          });
         },
         style: ButtonStyle(
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -43,7 +46,7 @@ class PostCardVertical extends StatelessWidget {
                 16.0,
               ),
               child: Hero(
-                tag: 'tag${post.id}',
+                tag: 'tag${product.id}',
                 child: FadeInImage(
                   height: 140,
                   width: 140,
@@ -68,12 +71,12 @@ class PostCardVertical extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 RateBadge(
-                  rate: post.rate,
+                  rate: product.rate,
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 16),
                   child: Text(
-                    post.name,
+                    product.name,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -84,7 +87,7 @@ class PostCardVertical extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(top: 16),
                   child: Text(
-                    post.category.name,
+                    product.category.name,
                     style: TextStyle(
                       fontSize: 14,
                       color: Config.colors[ColorVariables.black]!,

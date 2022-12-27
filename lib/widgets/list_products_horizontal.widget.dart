@@ -1,23 +1,21 @@
-import 'package:church_app/widgets/post_card_horizontal.widget.dart';
-import 'package:church_app/widgets/post_card_vertical.widget.dart';
+import 'package:church_app/models/product.model.dart';
 import 'package:flutter/material.dart';
 
-import '../models/post.model.dart';
-import '../models/product.model.dart';
+import 'product_card_horizontal.widget.dart';
 
-class ListItemVertical extends StatefulWidget {
-  const ListItemVertical({Key? key}) : super(key: key);
+class ListProductsHorizontal extends StatefulWidget {
+  const ListProductsHorizontal({Key? key}) : super(key: key);
 
   @override
-  State<ListItemVertical> createState() => _ListItemVerticalState();
+  State<ListProductsHorizontal> createState() => _ListProductsHorizontalState();
 }
 
-class _ListItemVerticalState extends State<ListItemVertical> {
+class _ListProductsHorizontalState extends State<ListProductsHorizontal> {
   //TODO: Substituir pela lista de post da API
   static List<Map<String, dynamic>> list = [
     {
       "id": "0",
-      "name": "Post 0",
+      "name": "Product 0",
       "category": {
         "id": "0",
         "name": "Crescimento0",
@@ -25,10 +23,12 @@ class _ListItemVerticalState extends State<ListItemVertical> {
       },
       "rate": 4.3,
       "liked": true,
+      "price": 5.49,
+      "quantity": 10,
     },
     {
       "id": "1",
-      "name": "Post1",
+      "name": "Product1",
       "category": {
         "id": "1",
         "name": "Crescimento1",
@@ -36,10 +36,12 @@ class _ListItemVerticalState extends State<ListItemVertical> {
       },
       "rate": 4.1,
       "liked": false,
+      "price": 5.49,
+      "quantity": 10,
     },
     {
       "id": "2",
-      "name": "Post2",
+      "name": "Product2",
       "category": {
         "id": "2",
         "name": "Crescimento2",
@@ -47,10 +49,12 @@ class _ListItemVerticalState extends State<ListItemVertical> {
       },
       "rate": 4.3,
       "liked": true,
+      "price": 5.49,
+      "quantity": 10,
     },
     {
       "id": "3",
-      "name": "Post3",
+      "name": "Product3",
       "category": {
         "id": "3",
         "name": "Crescimento3",
@@ -58,10 +62,12 @@ class _ListItemVerticalState extends State<ListItemVertical> {
       },
       "rate": 4.3,
       "liked": false,
+      "price": 5.49,
+      "quantity": 10,
     },
     {
       "id": "4",
-      "name": "Post4",
+      "name": "Product4",
       "category": {
         "id": "4",
         "name": "Crescimento4",
@@ -69,10 +75,12 @@ class _ListItemVerticalState extends State<ListItemVertical> {
       },
       "rate": 4.3,
       "liked": true,
+      "price": 5.49,
+      "quantity": 10,
     },
     {
       "id": "5",
-      "name": "Post5",
+      "name": "Product5",
       "category": {
         "id": "5",
         "name": "Crescimento5",
@@ -80,6 +88,8 @@ class _ListItemVerticalState extends State<ListItemVertical> {
       },
       "rate": 4.3,
       "liked": true,
+      "price": 5.49,
+      "quantity": 10,
     },
   ];
 
@@ -95,13 +105,15 @@ class _ListItemVerticalState extends State<ListItemVertical> {
       margin: const EdgeInsets.only(
         top: 32,
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
+      height: 240,
+      child: ListView(
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
         children: List.generate(
           list.length,
           (int index) {
             Map<String, dynamic> product = list[index];
-            return PostCardVertical(
+            return ProductCardHorizontal(
               product: Product.fromMap(product),
               onPressLike: () => onPressLike(
                 index: index,

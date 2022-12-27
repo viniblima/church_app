@@ -1,8 +1,6 @@
-import 'package:church_app/widgets/category_button.widget.dart';
+import 'package:church_app/widgets/select_button.widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-
-import '../models/category.model.dart';
 
 class CategoriesSlider extends StatefulWidget {
   const CategoriesSlider({Key? key}) : super(key: key);
@@ -94,10 +92,8 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
               (int index) {
                 Map<String, dynamic> category = categories[index];
 
-                return CategoryButton(
-                  category: Category.fromMap(
-                    category,
-                  ),
+                return SelectButton(
+                  text: category['name'],
                   onPress: () => onPress(index: index),
                   selected: categories[index]['selected'],
                 );

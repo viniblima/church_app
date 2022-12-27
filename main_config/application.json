@@ -8,10 +8,10 @@
             }
         },
         {
-            "name": "posts",
+            "name": "products",
             "button_tab": {
-                "icon": "posts",
-                "name": "posts"
+                "icon": "products",
+                "name": "products"
             }
         },
         {

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 import '../controllers/config.controller.dart';
 
@@ -15,40 +13,36 @@ class LikeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 40,
-      width: 40,
-      child: TextButton(
-        style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40.0),
-            ),
+    return TextButton(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30.0),
           ),
-          overlayColor: MaterialStateProperty.resolveWith<Color>(
-            (states) => liked
-                ? Config.colors[ColorVariables.white]!
-                : Config.colors[ColorVariables.primary]!,
-          ),
-          backgroundColor: liked
-              ? MaterialStateProperty.resolveWith<Color>(
-                  (states) => liked
-                      ? Config.colors[ColorVariables.primary]!
-                      : Config.colors[ColorVariables.white]!,
-                )
-              : MaterialStateProperty.resolveWith<Color>(
-                  (states) => Config.colors[ColorVariables.white]!,
-                ),
         ),
-        onPressed: () => onPressLike(),
-        child: Center(
-          child: Icon(
-            Icons.favorite,
-            size: 20,
-            color: liked
-                ? Config.colors[ColorVariables.white]
-                : Config.colors[ColorVariables.black],
-          ),
+        overlayColor: MaterialStateProperty.resolveWith<Color>(
+          (states) => liked
+              ? Config.colors[ColorVariables.white]!
+              : Config.colors[ColorVariables.primary]!,
+        ),
+        backgroundColor: liked
+            ? MaterialStateProperty.resolveWith<Color>(
+                (states) => liked
+                    ? Config.colors[ColorVariables.primary]!
+                    : Config.colors[ColorVariables.white]!,
+              )
+            : MaterialStateProperty.resolveWith<Color>(
+                (states) => Config.colors[ColorVariables.white]!,
+              ),
+      ),
+      onPressed: () => onPressLike(),
+      child: Center(
+        child: Icon(
+          Icons.favorite,
+          size: 16,
+          color: liked
+              ? Config.colors[ColorVariables.white]
+              : Config.colors[ColorVariables.black],
         ),
       ),
     );

@@ -1,18 +1,19 @@
 import 'package:church_app/widgets/categories_slider.widget.dart';
+import 'package:church_app/widgets/list_products_horizontal.widget.dart';
+
 import 'package:church_app/widgets/search_posts.widget.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/list_posts_horizontal.widget.dart';
-import '../widgets/list_posts_vertical.widget.dart';
+import '../widgets/list_products_vertical.widget.dart';
 
-class PostsPage extends StatefulWidget {
-  const PostsPage({Key? key}) : super(key: key);
+class ProductsPage extends StatefulWidget {
+  const ProductsPage({Key? key}) : super(key: key);
 
   @override
-  State<PostsPage> createState() => _PostsPageState();
+  State<ProductsPage> createState() => _ProductsPageState();
 }
 
-class _PostsPageState extends State<PostsPage> {
+class _ProductsPageState extends State<ProductsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,8 +22,8 @@ class _PostsPageState extends State<PostsPage> {
           children: const <Widget>[
             SearchPosts(),
             CategoriesSlider(),
-            ListPostsHorizontal(),
-            ListPostsVertical(),
+            ListProductsHorizontal(),
+            ListProductsVertical(),
           ],
         ),
       ),
