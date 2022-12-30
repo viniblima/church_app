@@ -1,4 +1,5 @@
 import 'package:church_app/controllers/config.controller.dart';
+import 'package:church_app/widgets/like_button.widget.dart';
 import 'package:flutter/material.dart';
 
 import '../models/post.model.dart';
@@ -67,8 +68,13 @@ class PostCardVertical extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                RateBadge(
-                  rate: post.rate,
+                Row(
+                  children: <Widget>[
+                    RateBadge(
+                      rate: post.rate,
+                    ),
+                    LikeButton(onPressLike: onPressLike, liked: post.liked)
+                  ],
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 16),

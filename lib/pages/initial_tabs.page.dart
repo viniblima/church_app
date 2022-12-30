@@ -3,10 +3,14 @@ import 'dart:convert';
 import 'package:church_app/controllers/config.controller.dart';
 import 'package:church_app/widgets/app_bar_tabs.widget.dart';
 import 'package:church_app/widgets/button_tabs.widget.dart';
+import 'package:church_app/widgets/cart_button.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:get/get.dart';
 
+import '../controllers/cart.controller.dart';
 import '../widgets/custom_tab_view.widget.dart';
+import '../widgets/modal_cart.widget.dart';
 
 class InitialTabsPage extends StatefulWidget {
   const InitialTabsPage({Key? key}) : super(key: key);
@@ -58,6 +62,8 @@ class _InitialTabsPageState extends State<InitialTabsPage>
 
   @override
   Widget build(BuildContext context) {
+    CartControllerX cartControllerX = Get.find<CartControllerX>();
+
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -94,6 +100,57 @@ class _InitialTabsPageState extends State<InitialTabsPage>
                 onScroll: (position) {},
               )
             : Container(),
+        /* floatingActionButton: const SizedBox(
+          height: 50,
+          width: 50,
+          child: CartButton(
+            height: 50,
+          ),
+        ),
+      ), */
+        /* floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Config.colors[ColorVariables.white],
+          onPressed: () => Get.bottomSheet(
+            const ModalCart(),
+            isDismissible: true,
+          ),
+          child: SizedBox(
+            height: 40,
+            width: 40,
+            child: Stack(
+              children: <Widget>[
+                Positioned(
+                  child: Center(
+                    child: Icon(
+                      Icons.shopping_cart_outlined,
+                      size: 16,
+                      color: Config.colors[ColorVariables.black],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 3,
+                  left: 50 / 2 - 2,
+                  child: Obx(
+                    () => cartControllerX.products.isEmpty
+                        ? Container()
+                        : Center(
+                            child: Text(
+                              cartControllerX.products.length > 9
+                                  ? '9+'
+                                  : '${cartControllerX.products.length}',
+                              style: TextStyle(
+                                  fontSize: 8,
+                                  color: Config.colors[ColorVariables.black]),
+                            ),
+                          ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ), */
       ),
     );
   }

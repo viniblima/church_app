@@ -1,7 +1,9 @@
 import 'package:church_app/controllers/config.controller.dart';
 import 'package:church_app/models/product.model.dart';
+import 'package:church_app/widgets/like_button.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import 'rate_badge.widget.dart';
 
@@ -67,35 +69,75 @@ class ProductCardVertical extends StatelessWidget {
             const SizedBox(
               width: 16,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                RateBadge(
-                  rate: product.rate,
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 16),
-                  child: Text(
-                    product.name,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Config.colors[ColorVariables.black]!,
-                    ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      RateBadge(
+                        rate: product.rate,
+                      ),
+                      SizedBox(
+                        height: 30,
+                        width: 30,
+                        child: LikeButton(
+                          onPressLike: onPressLike,
+                          liked: product.liked,
+                          size: LikeButtonSize.small,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 16),
-                  child: Text(
-                    product.category.name,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Config.colors[ColorVariables.black]!,
-                    ),
+                  const SizedBox(
+                    height: 20,
                   ),
-                ),
-              ],
-            )
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        margin: const EdgeInsets.only(top: 4),
+                        child: Text(
+                          product.name,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Config.colors[ColorVariables.black]!,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 4),
+                        child: Text(
+                          NumberFormat.simpleCurrency(
+                            locale: Get.locale.toString(),
+                          ).format(product.priceWithDiscount),
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Config.colors[ColorVariables.black]!,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 4),
+                        child: Text(
+                          'ou ${product.maxQuantityInstallments}x de ${NumberFormat.simpleCurrency(
+                            locale: Get.locale.toString(),
+                          ).format(product.priceWithDiscount / product.maxQuantityInstallments)} sem juros',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Config.colors[ColorVariables.secondary]!,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),

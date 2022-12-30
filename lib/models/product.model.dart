@@ -6,8 +6,11 @@ class Product {
   late Category category;
   late double rate;
   late bool liked;
-  late double price;
+  late double originalPrice;
+  late double priceWithDiscount;
+  late double percentDiscount;
   late int quantity;
+  late int maxQuantityInstallments;
 
   Product({
     required this.id,
@@ -15,8 +18,11 @@ class Product {
     required this.category,
     required this.rate,
     required this.liked,
-    required this.price,
+    required this.originalPrice,
+    required this.priceWithDiscount,
+    required this.percentDiscount,
     required this.quantity,
+    required this.maxQuantityInstallments,
   });
 
   Product.fromMap(Map<String, dynamic> json) {
@@ -25,7 +31,10 @@ class Product {
     category = Category.fromMap(json['category']);
     rate = json['rate'];
     liked = json['liked'];
-    price = json['price'];
+    originalPrice = json['original_price'];
+    priceWithDiscount = json['price_with_discount'];
+    percentDiscount = json['percent_discount'];
     quantity = json['quantity'];
+    maxQuantityInstallments = json['max_quantity_installments'];
   }
 }

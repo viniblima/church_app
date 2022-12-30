@@ -2,6 +2,10 @@ import 'package:church_app/models/product.model.dart';
 import 'package:church_app/widgets/like_button.widget.dart';
 import 'package:church_app/widgets/rate_badge.widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+
+import '../controllers/config.controller.dart';
 
 class ProductCardHorizontal extends StatelessWidget {
   final Product product;
@@ -17,6 +21,7 @@ class ProductCardHorizontal extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(left: 16),
       child: Column(
+        mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
@@ -62,6 +67,7 @@ class ProductCardHorizontal extends StatelessWidget {
             ),
           ),
           Container(
+            width: 135,
             margin: const EdgeInsets.only(top: 4.0, left: 4.0),
             child: Text(
               product.name,
@@ -70,20 +76,50 @@ class ProductCardHorizontal extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(top: 4.0, left: 4.0),
-            child: Text(
-              product.category.name,
-              style: const TextStyle(fontSize: 12),
-            ),
-          ),
-          Container(
-            width: 140,
-            height: 50,
-            alignment: Alignment.centerRight,
-            child: LikeButton(
-              onPressLike: onPressLike,
-              liked: product.liked,
+          SizedBox(
+            width: 135,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      margin: const EdgeInsets.only(top: 4, left: 4.0),
+                      child: Text(
+                        NumberFormat.simpleCurrency(
+                          locale: Get.locale.toString(),
+                        ).format(product.priceWithDiscount),
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Config.colors[ColorVariables.black]!,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 4, left: 4.0),
+                      child: Text(
+                        '${product.maxQuantityInstallments}x de ${NumberFormat.simpleCurrency(
+                          locale: Get.locale.toString(),
+                        ).format(product.priceWithDiscount / product.maxQuantityInstallments)}',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: Config.colors[ColorVariables.secondary]!,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  width: 30,
+                  height: 30,
+                  alignment: Alignment.centerRight,
+                  child: LikeButton(
+                    onPressLike: onPressLike,
+                    liked: product.liked,
+                  ),
+                ),
+              ],
             ),
           ),
         ],

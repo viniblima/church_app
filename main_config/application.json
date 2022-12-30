@@ -7,18 +7,19 @@
                 "name": "home"
             }
         },
-        {
-            "name": "products",
-            "button_tab": {
-                "icon": "products",
-                "name": "products"
-            }
-        },
+        
         {
             "name": "events",
             "button_tab": {
                 "icon": "events",
                 "name": "events"
+            }
+        },
+        {
+            "name": "products",
+            "button_tab": {
+                "icon": "products",
+                "name": "products"
             }
         },
         {
@@ -28,6 +29,7 @@
                 "name": "my_account"
             }
         }
+        
     ],
     "categories": [
         {

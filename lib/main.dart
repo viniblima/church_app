@@ -37,7 +37,6 @@ class _MyAppState extends State<MyApp> {
   final CartControllerX cartControllerX =
       Get.put<CartControllerX>(CartControllerX());
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

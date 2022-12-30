@@ -29,7 +29,7 @@ class Config {
     ColorVariables.black: Color(0xFF000000),
     ColorVariables.borderGray: Color(0xFFEEF0F3),
     ColorVariables.inputBackground: Color.fromARGB(255, 242, 243, 242),
-    ColorVariables.highlightGray: Color(0xFFF2F2F2),
+    ColorVariables.highlightGray: Color.fromARGB(255, 182, 181, 181),
     ColorVariables.backgroundGray: Color(0xFFFBFBFB),
     ColorVariables.highlightPrimary: Color(0xFF7FA896),
   };

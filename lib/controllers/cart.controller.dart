@@ -13,4 +13,9 @@ class CartControllerX extends GetxController {
     products.clear();
     update();
   }
+
+  removeItem(int index) {
+    products.removeAt(index);
+    update();
+  }
 }

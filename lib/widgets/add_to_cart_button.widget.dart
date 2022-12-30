@@ -4,12 +4,11 @@ import 'package:get/get.dart';
 
 import '../controllers/config.controller.dart';
 import '../models/product.model.dart';
+import 'button.widget.dart';
 
 class AddToCartButton extends StatelessWidget {
-  final Function onPress;
   final Product product;
   const AddToCartButton({
-    required this.onPress,
     required this.product,
     Key? key,
   }) : super(key: key);
@@ -20,25 +19,8 @@ class AddToCartButton extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsets.only(left: 8, top: 16),
-      child: TextButton(
-        style: ButtonStyle(
-            overlayColor: MaterialStateProperty.resolveWith<Color>(
-                (states) => Config.colors[ColorVariables.white]!),
-            padding: MaterialStateProperty.all<EdgeInsetsGeometry?>(
-              const EdgeInsets.all(16),
-            ),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(32.0),
-                side: BorderSide(
-                  color: Config.colors[ColorVariables.borderGray]!,
-                ),
-              ),
-            ),
-            backgroundColor: MaterialStateProperty.resolveWith<Color>(
-              (states) => Config.colors[ColorVariables.primary]!,
-            )),
-        onPressed: () => cartControllerX.addToCart(product),
+      child: Button(
+        onPress: () => cartControllerX.addToCart(product),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
@@ -68,7 +50,7 @@ class AddToCartButton extends StatelessWidget {
                   width: 3,
                 ),
                 Text(
-                  product.price.toString(),
+                  product.priceWithDiscount.toString(),
                   style: TextStyle(
                     color: Config.colors[ColorVariables.white],
                     fontSize: 14,

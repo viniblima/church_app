@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'cart_button.widget.dart';
+
 class AppBarTabs extends StatelessWidget implements PreferredSizeWidget {
   final double height;
   final String title;
@@ -20,16 +22,17 @@ class AppBarTabs extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      actions: [
-        Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.only(
-              right: 16,
-            ),
-            child: IconButton(
-              icon: const Icon(Icons.notifications),
-              onPressed: () {},
-            ))
+      actions: const [
+        Center(
+          child: SizedBox(
+            width: 40,
+            height: 40,
+            child: CartButton(),
+          ),
+        ),
+        const SizedBox(
+          width: 10,
+        ),
       ],
       leading: IconButton(
         icon: const Icon(Icons.person),
@@ -37,6 +40,7 @@ class AppBarTabs extends StatelessWidget implements PreferredSizeWidget {
       ),
       title: Text(title),
       centerTitle: true,
+      elevation: 0.0,
     );
   }
 }
