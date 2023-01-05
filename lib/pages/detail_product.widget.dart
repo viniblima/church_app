@@ -11,7 +11,6 @@ import 'package:get/get.dart';
 
 import '../models/product.model.dart';
 import '../widgets/custom_back_button.widget.dart';
-import '../widgets/list_products_horizontal.widget.dart';
 
 class DetailProductPage extends StatefulWidget {
   const DetailProductPage({Key? key}) : super(key: key);

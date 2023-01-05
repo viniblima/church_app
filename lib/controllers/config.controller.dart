@@ -4,6 +4,7 @@ import 'package:church_app/pages/my_account.page.dart';
 import 'package:church_app/pages/posts.page.dart';
 import 'package:church_app/pages/products.page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Config {
   static Map<String, Widget> pages = const {
@@ -32,7 +33,21 @@ class Config {
     ColorVariables.highlightGray: Color.fromARGB(255, 182, 181, 181),
     ColorVariables.backgroundGray: Color(0xFFFBFBFB),
     ColorVariables.highlightPrimary: Color(0xFF7FA896),
+    ColorVariables.purple: Color(0xFF5F1584),
   };
+
+  static List<Map<String, dynamic>> paymentMethods = [
+    {
+      'name': '${'credit'.tr} / ${'debit'.tr} ${'card'.tr}',
+      'on_press': () {},
+      'icon': Icons.credit_card,
+    },
+    {
+      'name': 'Pix',
+      'on_press': () {},
+      'icon': Icons.pix,
+    },
+  ];
 }
 
 enum ColorVariables {
@@ -44,5 +59,6 @@ enum ColorVariables {
   inputBackground,
   highlightGray,
   backgroundGray,
-  highlightPrimary
+  highlightPrimary,
+  purple,
 }

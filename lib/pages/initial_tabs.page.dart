@@ -3,14 +3,9 @@ import 'dart:convert';
 import 'package:church_app/controllers/config.controller.dart';
 import 'package:church_app/widgets/app_bar_tabs.widget.dart';
 import 'package:church_app/widgets/button_tabs.widget.dart';
-import 'package:church_app/widgets/cart_button.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:get/get.dart';
-
-import '../controllers/cart.controller.dart';
 import '../widgets/custom_tab_view.widget.dart';
-import '../widgets/modal_cart.widget.dart';
 
 class InitialTabsPage extends StatefulWidget {
   const InitialTabsPage({Key? key}) : super(key: key);
@@ -62,8 +57,6 @@ class _InitialTabsPageState extends State<InitialTabsPage>
 
   @override
   Widget build(BuildContext context) {
-    CartControllerX cartControllerX = Get.find<CartControllerX>();
-
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(

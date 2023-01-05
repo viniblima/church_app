@@ -1,3 +1,4 @@
+import 'package:church_app/pages/add_new_card.page.dart';
 import 'package:church_app/pages/cart.page.dart';
 import 'package:church_app/pages/detail_product.widget.dart';
 import 'package:church_app/pages/payment_methods.page.dart';
@@ -26,5 +27,9 @@ List<GetPage<Widget>> routes = [
   GetPage(
     name: '/payment_methods',
     page: () => const PaymentMethodsPage(),
+  ),
+  GetPage(
+    name: '/add_new_card',
+    page: () => const AddNewCardPage(),
   ),
 ];

@@ -17,4 +17,10 @@ const Map<String, String> enUs = {
   "related_products": "Related products",
   "size_guide": "Size guide",
   "your_cart_is_empty": "Your cart is empty",
+  "add_new_card": "Add new card",
+  "other_payment_methods": "Other payment methods",
+  "pay_now": "Pagar agora",
+  "view_details": "View Details",
+  "card_number": "Card Number",
+  "expiration_date": "Expiration Date",
 };
