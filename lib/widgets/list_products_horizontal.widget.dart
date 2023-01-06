@@ -127,6 +127,7 @@ class _ListProductsHorizontalState extends State<ListProductsHorizontal> {
       child: ListView(
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
         children: List.generate(
           list.length,
           (int index) {

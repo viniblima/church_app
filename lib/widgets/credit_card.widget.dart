@@ -26,7 +26,7 @@ class _CreditCardAnimatedState extends State<CreditCardAnimated> {
       height: 60,
       //padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
       decoration: BoxDecoration(
-        color: Config.colors[ColorVariables.purple],
+        color: Config.colors[ColorVariables.highlightGray],
         borderRadius: const BorderRadius.all(Radius.circular(8.0)),
       ),
       child: Column(
@@ -129,7 +129,7 @@ class _CreditCardAnimatedState extends State<CreditCardAnimated> {
       padding: EdgeInsets.symmetric(
           horizontal: widget.hideNumbersCard ? 8 : 0, vertical: 16),
       decoration: BoxDecoration(
-        color: Config.colors[ColorVariables.purple],
+        color: Config.colors[ColorVariables.highlightPrimary],
         borderRadius: const BorderRadius.all(Radius.circular(8.0)),
       ),
       child: Column(

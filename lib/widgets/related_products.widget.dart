@@ -16,7 +16,7 @@ class _RelatedProductsState extends State<RelatedProducts> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Padding(
+        Container(
           padding: const EdgeInsets.only(left: 16),
           child: Text(
             'related_products'.tr,

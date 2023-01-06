@@ -17,7 +17,7 @@ class PaymentControllerX extends GetxController {
 
   Rx<CreditCard> newCard = CreditCard(
     expirationMonth: '00',
-    expirationYear: '00',
+    expirationYear: '0000',
     numberCard: '',
     cvv: '',
     name: '',

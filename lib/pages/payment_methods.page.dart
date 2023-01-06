@@ -1,29 +1,70 @@
+import 'dart:async';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:church_app/controllers/config.controller.dart';
 import 'package:church_app/controllers/payment.controller.dart';
 import 'package:church_app/models/credit_card.model.dart';
 import 'package:church_app/models/payment_method.model.dart';
-import 'package:church_app/widgets/button.widget.dart';
 import 'package:church_app/widgets/credit_card.widget.dart';
 import 'package:church_app/widgets/payment_method_item.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../controllers/cart.controller.dart';
 import '../models/product.model.dart';
 
-class PaymentMethodsPage extends StatelessWidget {
+class PaymentMethodsPage extends StatefulWidget {
   const PaymentMethodsPage({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<PaymentMethodsPage> createState() => _PaymentMethodsPageState();
+}
+
+class _PaymentMethodsPageState extends State<PaymentMethodsPage>
+    with TickerProviderStateMixin {
+  final RoundedLoadingButtonController _btnController1 =
+      RoundedLoadingButtonController();
+
+  Color backgroundIcon = Config.colors[ColorVariables.primary]!;
+  CartControllerX cartControllerX = Get.find<CartControllerX>();
+  PaymentControllerX paymentControllerX = Get.find<PaymentControllerX>();
+  late TabController controller;
+
+  int indexRadio = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    controller = TabController(
+      length: paymentControllerX.cards.length + 1,
+      vsync: this,
+      initialIndex: 0,
+    );
+    super.initState();
+  }
+
+  //TODO: Implementar pagamento
+  void _doSomething(RoundedLoadingButtonController controller) async {
+    Timer(const Duration(seconds: 3), () {
+      setState(() {
+        backgroundIcon = Config.colors[ColorVariables.primary]!;
+      });
+
+      controller.success();
+
+      Timer(const Duration(seconds: 2), () {
+        Get.offAndToNamed('checkout');
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     double totalPrice = 0.0;
-
-    CartControllerX cartControllerX = Get.find<CartControllerX>();
-    PaymentControllerX paymentControllerX = Get.find<PaymentControllerX>();
 
     for (Product element in cartControllerX.products) {
       totalPrice += element.priceWithDiscount;
@@ -66,12 +107,12 @@ class PaymentMethodsPage extends StatelessWidget {
                       width: MediaQuery.of(context).size.width,
                       height: 250,
                       child: CarouselSlider(
-                        items: [
+                        items: <Widget>[
                           GestureDetector(
                             onTap: () {
                               paymentControllerX.newCard.value = CreditCard(
                                 expirationMonth: '00',
-                                expirationYear: '00',
+                                expirationYear: '0000',
                                 numberCard: '',
                                 cvv: '',
                                 name: '',
@@ -125,6 +166,10 @@ class PaymentMethodsPage extends StatelessWidget {
                           enlargeCenterPage: false,
                           viewportFraction: 0.5,
                           enableInfiniteScroll: false,
+                          onPageChanged:
+                              (int index, CarouselPageChangedReason reason) {
+                            controller.animateTo(index);
+                          },
                         ),
                       ),
                     ),
@@ -137,23 +182,53 @@ class PaymentMethodsPage extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               color: Config.colors[ColorVariables.white],
               padding: const EdgeInsets.all(16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text('other_payment_methods'.tr),
+              child: TabBarView(
+                physics: const NeverScrollableScrollPhysics(),
+                controller: controller,
+                children: [
                   Column(
-                    children: List.generate(
-                      Config.paymentMethods.length,
-                      (int index) {
-                        PaymentMethod method =
-                            PaymentMethod.fromMap(Config.paymentMethods[index]);
-                        return PaymentMethodItem(
-                          method: method,
-                        );
-                      },
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text('other_payment_methods'.tr),
+                      Column(
+                        children: List.generate(
+                          Config.paymentMethods.length,
+                          (int index) {
+                            PaymentMethod method = PaymentMethod.fromMap(
+                                Config.paymentMethods[index]);
+                            return PaymentMethodItem(
+                              method: method,
+                            );
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                  ...List.generate(
+                    paymentControllerX.cards.length,
+                    (index) => Container(
+                      child: ListView(
+                        shrinkWrap: true,
+                        children: List.generate(
+                          5,
+                          (int index) {
+                            return RadioListTile(
+                              value: index,
+                              title: Text('Index $index'),
+                              groupValue: indexRadio,
+                              onChanged: (int? value) {
+                                print(value);
+                                setState(() {
+                                  indexRadio = value!;
+                                });
+                              },
+                            );
+                          },
+                        ),
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -164,7 +239,7 @@ class PaymentMethodsPage extends StatelessWidget {
         elevation: 0,
         color: Config.colors[ColorVariables.white],
         child: Container(
-          padding: EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
             color: Config.colors[ColorVariables.primary],
             borderRadius: const BorderRadius.only(
@@ -202,7 +277,7 @@ class PaymentMethodsPage extends StatelessWidget {
                   ),
                 ],
               ),
-              Button(
+              /* Button(
                 onPress: () {},
                 type: ButtonVariables.outline,
                 child: Row(
@@ -224,6 +299,41 @@ class PaymentMethodsPage extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
+              ), */
+              SizedBox(
+                width: 100,
+                child: RoundedLoadingButton(
+                  color: Config.colors[ColorVariables.white],
+                  successIcon: Icons.check_circle_outline,
+                  successColor: Config.colors[ColorVariables.white],
+                  failedIcon: Icons.cottage,
+                  controller: _btnController1,
+                  valueColor: backgroundIcon,
+                  onPressed: () => _doSomething(_btnController1),
+                  child: Hero(
+                    tag: 'pay_button',
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'pay_now'.tr,
+                          style: TextStyle(
+                            color: Config.colors[ColorVariables.primary],
+                            fontSize: 12,
+                          ),
+                        ),
+                        Center(
+                          child: Icon(
+                            Icons.keyboard_arrow_right_sharp,
+                            size: 18,
+                            color: Config.colors[ColorVariables.primary],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ],

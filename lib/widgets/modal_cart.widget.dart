@@ -105,7 +105,10 @@ class _ModalCartState extends State<ModalCart> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 2 - 32,
                       child: Button(
-                        onPress: () => Get.toNamed('payment_methods'),
+                        onPress: () {
+                          Get.back();
+                          Get.toNamed('payment_methods');
+                        },
                         disabled: cartControllerX.products.isEmpty,
                         child: Text(
                           'checkout'.tr.toUpperCase(),

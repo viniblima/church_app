@@ -29,9 +29,14 @@ class MaskedInput extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(label),
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 12,
+          ),
+        ),
         const SizedBox(
-          height: 16,
+          height: 4,
         ),
         Focus(
           onFocusChange: onFocus,
@@ -40,10 +45,14 @@ class MaskedInput extends StatelessWidget {
             inputFormatters: [const UpperCaseTextFormatter(), formatter],
             autocorrect: false,
             keyboardType: textInputType,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
+            //autovalidateMode: AutovalidateMode.disabled,
             validator: validator,
             onChanged: onChanged,
             decoration: InputDecoration(
+              contentPadding: const EdgeInsets.only(bottom: 0.0, top: 15.0),
+              prefix: const Padding(
+                padding: EdgeInsets.only(left: 20.0),
+              ),
               suffixIcon: suffixIcon,
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
@@ -51,7 +60,19 @@ class MaskedInput extends StatelessWidget {
                   color: Colors.blue,
                 ),
               ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: BorderSide(
+                  color: Colors.black26,
+                ),
+              ),
               enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: BorderSide(
+                  color: Colors.black26,
+                ),
+              ),
+              errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
                 borderSide: BorderSide(
                   color: Colors.black26,
