@@ -1,7 +1,10 @@
 import 'dart:convert';
 
 import 'package:church_app/controllers/cart.controller.dart';
+import 'package:church_app/controllers/favorite.controller.dart';
 import 'package:church_app/controllers/payment.controller.dart';
+import 'package:church_app/controllers/storage.controller.dart';
+import 'package:church_app/controllers/user.controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -35,11 +38,20 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final StorageControllerX storageControllerX =
+      Get.put<StorageControllerX>(StorageControllerX());
+
+  final UserControllerX userControllerX =
+      Get.put<UserControllerX>(UserControllerX());
+
   final CartControllerX cartControllerX =
       Get.put<CartControllerX>(CartControllerX());
 
   final PaymentControllerX paymentControllerX =
       Get.put<PaymentControllerX>(PaymentControllerX());
+
+  final FavoriteControllerX favoriteControllerX =
+      Get.put<FavoriteControllerX>(FavoriteControllerX());
 
   @override
   Widget build(BuildContext context) {

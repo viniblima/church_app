@@ -1,4 +1,5 @@
 import 'package:church_app/pages/events.page.dart';
+import 'package:church_app/pages/favorites.page.dart';
 import 'package:church_app/pages/home.page.dart';
 import 'package:church_app/pages/my_account.page.dart';
 import 'package:church_app/pages/posts.page.dart';
@@ -13,6 +14,7 @@ class Config {
     'events': EventsPage(),
     'my_account': MyAccountPage(),
     'products': ProductsPage(),
+    'favorites': FavoritesPage(),
   };
 
   static Map<String, IconData> icons = const {
@@ -20,7 +22,8 @@ class Config {
     'posts': Icons.book,
     'events': Icons.calendar_month,
     'my_account': Icons.person,
-    'products': Icons.production_quantity_limits_rounded
+    'products': Icons.production_quantity_limits_rounded,
+    'favorites': Icons.favorite,
   };
 
   static Map<ColorVariables, Color> colors = const {

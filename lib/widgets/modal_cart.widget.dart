@@ -54,7 +54,7 @@ class _ModalCartState extends State<ModalCart> {
                         onPressExclude: () {
                           setState(
                             () {
-                              cartControllerX.removeItem(index);
+                              cartControllerX.removeItem(index: index);
                             },
                           );
                         },

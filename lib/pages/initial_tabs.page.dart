@@ -73,7 +73,7 @@ class _InitialTabsPageState extends State<InitialTabsPage>
                 ),
                 tabs: List.generate(
                   pages.length,
-                  (index) => ButtonTabs(
+                  (int index) => ButtonTabs(
                     name: pages[index]['button_tab']['name'],
                     icon: Config.icons[pages[index]['button_tab']['icon']]!,
                   ),

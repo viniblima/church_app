@@ -20,7 +20,7 @@ class AddToCartButton extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(left: 8, top: 16),
       child: Button(
-        onPress: () => cartControllerX.addToCart(product),
+        onPress: () => cartControllerX.addToCart(product: product),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[

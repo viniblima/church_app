@@ -14,6 +14,8 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../controllers/cart.controller.dart';
 import '../models/product.model.dart';
+import '../widgets/button.widget.dart';
+import '../widgets/radio_option_installment.widget.dart';
 
 class PaymentMethodsPage extends StatefulWidget {
   const PaymentMethodsPage({
@@ -34,7 +36,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage>
   PaymentControllerX paymentControllerX = Get.find<PaymentControllerX>();
   late TabController controller;
 
-  int indexRadio = 0;
+  int? indexRadio;
 
   @override
   void initState() {
@@ -49,11 +51,14 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage>
 
   //TODO: Implementar pagamento
   void _doSomething(RoundedLoadingButtonController controller) async {
+    if (paymentControllerX.indexInstallment < 0) {
+      return;
+    }
     Timer(const Duration(seconds: 3), () {
       setState(() {
         backgroundIcon = Config.colors[ColorVariables.primary]!;
       });
-
+      cartControllerX.clearCart();
       controller.success();
 
       Timer(const Duration(seconds: 2), () {
@@ -109,7 +114,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage>
                       child: CarouselSlider(
                         items: <Widget>[
                           GestureDetector(
-                            onTap: () {
+                            onTap: () async {
                               paymentControllerX.newCard.value = CreditCard(
                                 expirationMonth: '00',
                                 expirationYear: '0000',
@@ -117,7 +122,14 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage>
                                 cvv: '',
                                 name: '',
                               );
-                              Get.toNamed('/add_new_card');
+                              var navigation =
+                                  await Get.toNamed('/add_new_card');
+                              controller = TabController(
+                                length: paymentControllerX.cards.length + 1,
+                                vsync: this,
+                                initialIndex: 0,
+                              );
+                              setState(() {});
                             },
                             child: Card(
                               elevation: 4.0,
@@ -168,7 +180,11 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage>
                           enableInfiniteScroll: false,
                           onPageChanged:
                               (int index, CarouselPageChangedReason reason) {
+                            print(reason);
+                            paymentControllerX.updateIndexInstallment(
+                                value: -1);
                             controller.animateTo(index);
+                            setState(() {});
                           },
                         ),
                       ),
@@ -207,25 +223,26 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage>
                   ),
                   ...List.generate(
                     paymentControllerX.cards.length,
-                    (index) => Container(
-                      child: ListView(
-                        shrinkWrap: true,
-                        children: List.generate(
-                          5,
-                          (int index) {
-                            return RadioListTile(
-                              value: index,
-                              title: Text('Index $index'),
-                              groupValue: indexRadio,
-                              onChanged: (int? value) {
-                                print(value);
+                    (index) => ListView(
+                      shrinkWrap: true,
+                      children: List.generate(
+                        5,
+                        (int index) {
+                          return Obx(
+                            () => RadioOptionInstallment(
+                              index: index,
+                              groupValue:
+                                  paymentControllerX.indexInstallment.value,
+                              totalPrice: totalPrice,
+                              onChange: (int? value) {
                                 setState(() {
-                                  indexRadio = value!;
+                                  paymentControllerX.updateIndexInstallment(
+                                      value: value!);
                                 });
                               },
-                            );
-                          },
-                        ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ),
@@ -302,38 +319,80 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage>
                 ),
               ), */
               SizedBox(
-                width: 100,
-                child: RoundedLoadingButton(
-                  color: Config.colors[ColorVariables.white],
-                  successIcon: Icons.check_circle_outline,
-                  successColor: Config.colors[ColorVariables.white],
-                  failedIcon: Icons.cottage,
-                  controller: _btnController1,
-                  valueColor: backgroundIcon,
-                  onPressed: () => _doSomething(_btnController1),
-                  child: Hero(
-                    tag: 'pay_button',
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'pay_now'.tr,
-                          style: TextStyle(
-                            color: Config.colors[ColorVariables.primary],
-                            fontSize: 12,
+                width: 110,
+                child: Obx(
+                  () => paymentControllerX.indexInstallment < 0
+                      ? Button(
+                          onPress: () {},
+                          type: ButtonVariables.outline,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                'pay_now'.tr,
+                                style: TextStyle(
+                                  color: Config
+                                      .colors[ColorVariables.highlightPrimary],
+                                  fontSize: 12,
+                                ),
+                              ),
+                              Center(
+                                child: Icon(
+                                  Icons.keyboard_arrow_right_sharp,
+                                  size: 18,
+                                  color: Config
+                                      .colors[ColorVariables.highlightPrimary],
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : RoundedLoadingButton(
+                          color: Config.colors[ColorVariables.white],
+                          successIcon: Icons.check_circle_outline,
+                          successColor: Config.colors[ColorVariables.white],
+                          failedIcon: Icons.cottage,
+                          controller: _btnController1,
+                          valueColor: backgroundIcon,
+                          onPressed: () =>
+                              paymentControllerX.indexInstallment >= 0
+                                  ? _doSomething(_btnController1)
+                                  : () {},
+                          child: Hero(
+                            tag: 'pay_button',
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  'pay_now'.tr,
+                                  style: TextStyle(
+                                    color: paymentControllerX
+                                                .indexInstallment >=
+                                            0
+                                        ? Config.colors[ColorVariables.primary]
+                                        : Config.colors[
+                                            ColorVariables.highlightPrimary],
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                Center(
+                                  child: Icon(
+                                    Icons.keyboard_arrow_right_sharp,
+                                    size: 18,
+                                    color: paymentControllerX
+                                                .indexInstallment >=
+                                            0
+                                        ? Config.colors[ColorVariables.primary]
+                                        : Config.colors[
+                                            ColorVariables.highlightPrimary],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        Center(
-                          child: Icon(
-                            Icons.keyboard_arrow_right_sharp,
-                            size: 18,
-                            color: Config.colors[ColorVariables.primary],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                 ),
               ),
             ],

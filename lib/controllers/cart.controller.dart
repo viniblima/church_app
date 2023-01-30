@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 class CartControllerX extends GetxController {
   RxList<Product> products = <Product>[].obs;
 
-  addToCart(Product product) {
+  addToCart({required Product product}) {
     products.add(product);
     update();
   }
@@ -14,7 +14,7 @@ class CartControllerX extends GetxController {
     update();
   }
 
-  removeItem(int index) {
+  removeItem({required int index}) {
     products.removeAt(index);
     update();
   }

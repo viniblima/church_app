@@ -36,4 +36,9 @@ const Map<String, String> enUs = {
   "day": "Day",
   "continue_shopping": "Continue shopping",
   "thanks": "Thanks",
+  "favorites": "Favorites",
+  "my_lists": "My lists",
+  "add_new_list": "Add new list",
+  "title_of_list": "Title of list",
+  "add": "Add",
 };

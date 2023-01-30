@@ -40,4 +40,9 @@ const Map<String, String> ptBR = {
   "day": "Dia",
   "continue_shopping": "Continuar comprando",
   "thanks": "Obrigado",
+  "favorites": "Favoritos",
+  "my_lists": "Minhas listas",
+  "add_new_list": "Adicionar nova lista",
+  "title_of_list": "Título da lista",
+  "add": "Adicionar",
 };

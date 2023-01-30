@@ -305,7 +305,8 @@ class _AddNewCardPageState extends State<AddNewCardPage> {
             child: Button(
               onPress: () {
                 if (_formKey.currentState!.validate()) {
-                  paymentControllerX.addCard(paymentControllerX.newCard.value);
+                  paymentControllerX.addCard(
+                      card: paymentControllerX.newCard.value);
                   //Get.offAndToNamed('payment_methods');
                   Get.back();
                 }

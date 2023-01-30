@@ -7,14 +7,6 @@
                 "name": "home"
             }
         },
-        
-        {
-            "name": "events",
-            "button_tab": {
-                "icon": "events",
-                "name": "events"
-            }
-        },
         {
             "name": "products",
             "button_tab": {
@@ -23,9 +15,16 @@
             }
         },
         {
+            "name": "favorites",
+            "button_tab": {
+                "icon": "favorites",
+                "name": "favorites"
+            }
+        },
+        {
             "name": "my_account",
             "button_tab": {
-                "icon": "home",
+                "icon": "my_account",
                 "name": "my_account"
             }
         }

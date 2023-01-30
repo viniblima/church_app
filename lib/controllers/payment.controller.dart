@@ -23,12 +23,19 @@ class PaymentControllerX extends GetxController {
     name: '',
   ).obs;
 
-  addCard(CreditCard card) {
+  Rx<int> indexInstallment = (-1).obs;
+
+  addCard({required CreditCard card}) {
     cards.add(card);
     update();
   }
 
-  changeNewCard(CreditCard item) {
+  updateIndexInstallment({required int value}) {
+    indexInstallment.value = value;
+    update();
+  }
+
+  changeNewCard({required CreditCard item}) {
     newCard.value = item;
     update();
   }
