@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Config {
+  static const baseUrl =
+      'http://ec2-54-88-247-171.compute-1.amazonaws.com:3000/api/v1';
+
   static Map<String, Widget> pages = const {
     'home': HomePage(),
     'posts': PostsPage(),
@@ -33,6 +36,7 @@ class Config {
     ColorVariables.black: Color(0xFF000000),
     ColorVariables.borderGray: Color(0xFFEEF0F3),
     ColorVariables.inputBackground: Color.fromARGB(255, 242, 243, 242),
+    ColorVariables.boxShadow: Color.fromARGB(255, 227, 230, 227),
     ColorVariables.highlightGray: Color.fromARGB(255, 182, 181, 181),
     ColorVariables.backgroundGray: Color(0xFFFBFBFB),
     ColorVariables.highlightPrimary: Color(0xFF7FA896),
@@ -64,4 +68,5 @@ enum ColorVariables {
   backgroundGray,
   highlightPrimary,
   purple,
+  boxShadow
 }

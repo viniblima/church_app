@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:church_app/controllers/cart.controller.dart';
 import 'package:church_app/controllers/favorite.controller.dart';
+import 'package:church_app/controllers/login.controller.dart';
 import 'package:church_app/controllers/payment.controller.dart';
 import 'package:church_app/controllers/storage.controller.dart';
 import 'package:church_app/controllers/user.controller.dart';
@@ -52,6 +53,9 @@ class _MyAppState extends State<MyApp> {
 
   final FavoriteControllerX favoriteControllerX =
       Get.put<FavoriteControllerX>(FavoriteControllerX());
+
+  final LoginControllerX loginControllerX =
+      Get.put<LoginControllerX>(LoginControllerX());
 
   @override
   Widget build(BuildContext context) {
