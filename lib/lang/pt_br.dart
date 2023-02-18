@@ -36,6 +36,7 @@ const Map<String, String> ptBR = {
   "invalid_name": "Nome inválido",
   "invalid_email": "Email inválido",
   "password_too_short": "Senha curta demais",
+  "passwords_do_not_match": "Senhas não estão iguais",
   "thank_for_purchasing": "Obrigado por comprar",
   "your_order_will_shipped": "Seu pedido será enviado e chegará em",
   "days": "Dias",

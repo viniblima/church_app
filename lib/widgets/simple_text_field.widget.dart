@@ -9,6 +9,7 @@ class SimpleTextField extends StatefulWidget {
   final TextInputType textInputType;
   final Widget? suffixIcon;
   final Widget? preffixIcon;
+  final bool obscureText;
 
   const SimpleTextField({
     Key? key,
@@ -18,6 +19,7 @@ class SimpleTextField extends StatefulWidget {
     required this.label,
     this.suffixIcon,
     this.preffixIcon,
+    this.obscureText = false,
   }) : super(key: key);
 
   @override
@@ -58,7 +60,7 @@ class _SimpleTextFieldState extends State<SimpleTextField> {
           ),
           Padding(
             padding: const EdgeInsets.only(
-              left: 50.0,
+              left: 15.0,
             ),
             child: Text(
               widget.label,
@@ -77,6 +79,7 @@ class _SimpleTextFieldState extends State<SimpleTextField> {
               });
             },
             child: TextFormField(
+              obscureText: widget.obscureText,
               controller: widget.textController,
               //inputFormatters: [const UpperCaseTextFormatter(), formatter],
               autocorrect: false,
@@ -87,7 +90,8 @@ class _SimpleTextFieldState extends State<SimpleTextField> {
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.only(
                   bottom: 0.0,
-                  top: 15.0,
+                  top: 0.0,
+                  left: 15.0,
                 ),
                 prefix: const Padding(
                   padding: EdgeInsets.only(top: 0),
@@ -106,9 +110,7 @@ class _SimpleTextFieldState extends State<SimpleTextField> {
                   borderRadius: BorderRadius.circular(
                     8.0,
                   ),
-                  borderSide: BorderSide(
-                    color: Colors.black26,
-                  ),
+                  borderSide: BorderSide(color: Colors.transparent),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -119,7 +121,7 @@ class _SimpleTextFieldState extends State<SimpleTextField> {
                 errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: BorderSide(
-                    color: Colors.black26,
+                    color: Colors.transparent,
                   ),
                 ),
                 hintStyle: const TextStyle(

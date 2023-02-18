@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import '../controllers/config.controller.dart';
-import '../widgets/button.widget.dart';
 import '../widgets/simple_text_field.widget.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -35,12 +34,17 @@ class _SignUpPageState extends State<SignUpPage> {
   final RoundedLoadingButtonController _btnController1 =
       RoundedLoadingButtonController();
 
+  bool obscureTextPassword = true;
+
+  bool obscureTextConfirmPassword = true;
+
   void signUp(RoundedLoadingButtonController controller) async {
     if (loginControllerX.signUpLoading.value ||
         !_formKey.currentState!.validate()) {
       controller.reset();
       return;
     }
+
     Timer(const Duration(seconds: 3), () {
       setState(() {
         //backgroundIcon = Config.colors[ColorVariables.white]!;
@@ -86,7 +90,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   children: <Widget>[
                     SimpleTextField(
                       textController: nameController,
-                      textInputType: TextInputType.emailAddress,
+                      textInputType: TextInputType.text,
                       label: 'full_name'.tr.toUpperCase(),
                       preffixIcon: Icon(
                         Icons.email,
@@ -111,7 +115,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       validator: (String? value) {
                         if (value == null ||
-                            RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                                 .hasMatch(value)) {
                           return 'invalid_email'.tr;
                         }
@@ -122,7 +126,21 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     SimpleTextField(
                       textController: passwordController,
-                      textInputType: TextInputType.emailAddress,
+                      textInputType: TextInputType.visiblePassword,
+                      obscureText: obscureTextPassword,
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            obscureTextPassword = !obscureTextPassword;
+                          });
+                        },
+                        icon: Icon(
+                          obscureTextPassword
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Config.colors[ColorVariables.primary],
+                        ),
+                      ),
                       label: 'password'.tr.toUpperCase(),
                       preffixIcon: Icon(
                         Icons.email,
@@ -144,6 +162,21 @@ class _SignUpPageState extends State<SignUpPage> {
                       preffixIcon: Icon(
                         Icons.email,
                         color: Config.colors[ColorVariables.primary]!,
+                      ),
+                      obscureText: obscureTextConfirmPassword,
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            obscureTextConfirmPassword =
+                                !obscureTextConfirmPassword;
+                          });
+                        },
+                        icon: Icon(
+                          obscureTextConfirmPassword
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Config.colors[ColorVariables.primary],
+                        ),
                       ),
                       validator: (String? value) {
                         if (value == null || value != passwordController.text) {
