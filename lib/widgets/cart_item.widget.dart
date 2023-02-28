@@ -51,21 +51,21 @@ class CartItem extends StatelessWidget {
                     Text(
                       product.name,
                     ),
-                    Text('info de frete'),
+                    const Text('info de frete'),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Container(
                           color: Colors.blue,
-                          child: Text('Tamanho: P'),
+                          child: const Text('Tamanho: P'),
                         ),
                         Column(
                           children: [
-                            product.percentDiscount > 0.0
+                            product.discount != null
                                 ? Row(
                                     children: <Widget>[
                                       Text(
-                                        '${product.percentDiscount.round().toString()}%',
+                                        '${product.discount!.percentDiscount.round().toString()}%',
                                         style: TextStyle(
                                           color: Config
                                               .colors[ColorVariables.secondary],
@@ -79,7 +79,7 @@ class CartItem extends StatelessWidget {
                                         NumberFormat.simpleCurrency(
                                           locale: Get.locale.toString(),
                                         ).format(
-                                          product.originalPrice,
+                                          product.price,
                                         ),
                                         style: TextStyle(
                                           color: Config.colors[
@@ -97,7 +97,7 @@ class CartItem extends StatelessWidget {
                             Text(
                               NumberFormat.simpleCurrency(
                                 locale: Get.locale.toString(),
-                              ).format(product.priceWithDiscount),
+                              ).format(product.price),
                               style: TextStyle(
                                 color: Config.colors[ColorVariables.black],
                                 fontSize: 16,

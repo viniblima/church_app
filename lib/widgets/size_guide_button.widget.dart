@@ -1,8 +1,6 @@
 import 'package:church_app/widgets/button.widget.dart';
 import 'package:church_app/widgets/modal_size_guide.widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 import '../controllers/config.controller.dart';

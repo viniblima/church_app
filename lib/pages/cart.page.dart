@@ -13,8 +13,9 @@ class CartPage extends StatelessWidget {
     CartControllerX cartControllerX = Get.find<CartControllerX>();
 
     return Scaffold(
-      appBar: const AppBarTabs(
+      appBar: AppBarTabs(
         title: 'titulo',
+        onPressLeading: () => {},
       ),
       body: SingleChildScrollView(
         child: Column(

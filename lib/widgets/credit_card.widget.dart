@@ -48,66 +48,64 @@ class _CreditCardAnimatedState extends State<CreditCardAnimated> {
             color: Colors.transparent,
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Center(
-              child: Container(
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: List.generate(
-                          7,
-                          (int indexLine) => Container(
-                            height: 2.85,
-                            //width: 132,
-                            color: indexLine.isOdd
-                                ? Config.colors[ColorVariables.white]
-                                : Config.colors[ColorVariables.backgroundGray],
-                          ),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: List.generate(
+                        7,
+                        (int indexLine) => Container(
+                          height: 2.85,
+                          //width: 132,
+                          color: indexLine.isOdd
+                              ? Config.colors[ColorVariables.white]
+                              : Config.colors[ColorVariables.backgroundGray],
                         ),
                       ),
                     ),
-                    Container(
-                      width: 32,
-                      color: Config.colors[ColorVariables.white],
-                      /* child: const Center(
-                        child: Text('* * *'),
-                      ), */
-                      child: widget.hideNumbersCard
-                          ? const Center(
-                              child: Text('* * *'),
-                            )
-                          : Center(
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                  left: 6,
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: List.generate(
-                                      widget.card.cvv.split('').length,
-                                      (int indexString) {
-                                    String textSection =
-                                        widget.card.cvv.split('')[indexString];
+                  ),
+                  Container(
+                    width: 32,
+                    color: Config.colors[ColorVariables.white],
+                    /* child: const Center(
+                      child: Text('* * *'),
+                    ), */
+                    child: widget.hideNumbersCard
+                        ? const Center(
+                            child: Text('* * *'),
+                          )
+                        : Center(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                left: 6,
+                              ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: List.generate(
+                                    widget.card.cvv.split('').length,
+                                    (int indexString) {
+                                  String textSection =
+                                      widget.card.cvv.split('')[indexString];
 
-                                    return Container(
-                                      width: 8,
-                                      child: Text(
-                                        textSection,
-                                        style: TextStyle(
-                                          fontSize: 10,
-                                        ),
+                                  return SizedBox(
+                                    width: 8,
+                                    child: Text(
+                                      textSection,
+                                      style: const TextStyle(
+                                        fontSize: 10,
                                       ),
-                                    );
-                                  }),
-                                ),
+                                    ),
+                                  );
+                                }),
                               ),
                             ),
-                    )
-                  ],
-                ),
+                          ),
+                  )
+                ],
               ),
             ),
           )
@@ -257,9 +255,7 @@ class _CreditCardAnimatedState extends State<CreditCardAnimated> {
         direction: FlipDirection.HORIZONTAL,
         speed: 700,
         controller: widget.controller,
-        onFlipDone: (status) {
-          print(status);
-        },
+        onFlipDone: (status) {},
         front: front(),
         back: back(),
       ),

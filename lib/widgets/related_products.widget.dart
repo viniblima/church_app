@@ -29,7 +29,7 @@ class _RelatedProductsState extends State<RelatedProducts> {
         const SizedBox(
           height: 8,
         ),
-        const ListProductsHorizontal(),
+        //const ListProductsHorizontal(),
       ],
     );
   }

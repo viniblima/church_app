@@ -1,4 +1,3 @@
-import 'package:church_app/widgets/add_new_list.widget.dart';
 import 'package:church_app/widgets/custom_lists.widget.dart';
 import 'package:flutter/material.dart';
 

@@ -1,5 +1,4 @@
 import 'package:church_app/controllers/payment.controller.dart';
-import 'package:church_app/models/credit_card.model.dart';
 import 'package:church_app/widgets/button.widget.dart';
 import 'package:church_app/widgets/masked_input.widget.dart';
 import 'package:flip_card/flip_card_controller.dart';
@@ -139,6 +138,7 @@ class _AddNewCardPageState extends State<AddNewCardPage> {
                         if (value!.length < 19) {
                           return 'invalid_number'.tr;
                         }
+                        return null;
                       },
                     ),
                     const SizedBox(
@@ -226,6 +226,7 @@ class _AddNewCardPageState extends State<AddNewCardPage> {
                                   .isBefore(DateTime.now())) {
                                 return 'old_date'.tr;
                               }
+                              return null;
                             },
                           ),
                         ),
@@ -255,6 +256,7 @@ class _AddNewCardPageState extends State<AddNewCardPage> {
                               if (value!.length < 3) {
                                 return 'invalid_cvv'.tr;
                               }
+                              return null;
                             },
                             formatter: cvvCardMask,
                             textController: cvvController,
@@ -288,6 +290,7 @@ class _AddNewCardPageState extends State<AddNewCardPage> {
                         if (value!.length < 6) {
                           return 'invalid_name'.tr;
                         }
+                        return null;
                       },
                     ),
                   ],
@@ -299,7 +302,7 @@ class _AddNewCardPageState extends State<AddNewCardPage> {
       ),
       bottomNavigationBar: BottomAppBar(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           height: 80,
           child: Center(
             child: Button(

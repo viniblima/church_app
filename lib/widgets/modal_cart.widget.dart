@@ -23,7 +23,11 @@ class _ModalCartState extends State<ModalCart> {
     CartControllerX cartControllerX = Get.find<CartControllerX>();
 
     for (Product element in cartControllerX.products) {
-      totalPrice += element.priceWithDiscount;
+      double price = element.discount != null
+          ? element.discount!.priceWithDiscount
+          : element.price;
+
+      totalPrice += price;
     }
 
     return Container(

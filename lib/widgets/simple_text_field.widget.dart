@@ -10,6 +10,7 @@ class SimpleTextField extends StatefulWidget {
   final Widget? suffixIcon;
   final Widget? preffixIcon;
   final bool obscureText;
+  final void Function(String)? onChanged;
 
   const SimpleTextField({
     Key? key,
@@ -19,6 +20,7 @@ class SimpleTextField extends StatefulWidget {
     required this.label,
     this.suffixIcon,
     this.preffixIcon,
+    this.onChanged,
     this.obscureText = false,
   }) : super(key: key);
 
@@ -86,7 +88,7 @@ class _SimpleTextFieldState extends State<SimpleTextField> {
               keyboardType: widget.textInputType,
               //autovalidateMode: AutovalidateMode.disabled,
               validator: widget.validator,
-              //onChanged: onChanged,
+              onChanged: widget.onChanged,
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.only(
                   bottom: 0.0,
@@ -102,7 +104,7 @@ class _SimpleTextFieldState extends State<SimpleTextField> {
                   borderRadius: BorderRadius.circular(
                     8.0,
                   ),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.transparent,
                   ),
                 ),
@@ -110,17 +112,17 @@ class _SimpleTextFieldState extends State<SimpleTextField> {
                   borderRadius: BorderRadius.circular(
                     8.0,
                   ),
-                  borderSide: BorderSide(color: Colors.transparent),
+                  borderSide: const BorderSide(color: Colors.transparent),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.transparent,
                   ),
                 ),
                 errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.transparent,
                   ),
                 ),

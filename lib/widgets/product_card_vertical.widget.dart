@@ -18,10 +18,15 @@ class ProductCardVertical extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double price = product.discount != null
+        ? product.discount!.priceWithDiscount
+        : product.price;
+
     return Container(
       margin: const EdgeInsets.only(
         bottom: 16.0,
       ),
+      height: 150,
       child: TextButton(
         onPressed: () {
           Get.toNamed('/detail_product', arguments: {
@@ -79,14 +84,14 @@ class ProductCardVertical extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       RateBadge(
-                        rate: product.rate,
+                        rate: product.rate ?? 0.0,
                       ),
                       SizedBox(
                         height: 30,
                         width: 30,
                         child: LikeButton(
                           onPressLike: onPressLike,
-                          liked: product.liked,
+                          liked: product.liked ?? false,
                           size: LikeButtonSize.small,
                         ),
                       ),
@@ -114,7 +119,7 @@ class ProductCardVertical extends StatelessWidget {
                         child: Text(
                           NumberFormat.simpleCurrency(
                             locale: Get.locale.toString(),
-                          ).format(product.priceWithDiscount),
+                          ).format(price),
                           style: TextStyle(
                             fontSize: 16,
                             color: Config.colors[ColorVariables.black]!,
@@ -126,7 +131,7 @@ class ProductCardVertical extends StatelessWidget {
                         child: Text(
                           'ou ${product.maxQuantityInstallments}x de ${NumberFormat.simpleCurrency(
                             locale: Get.locale.toString(),
-                          ).format(product.priceWithDiscount / product.maxQuantityInstallments)} sem juros',
+                          ).format(price / product.maxQuantityInstallments)} sem juros',
                           style: TextStyle(
                             fontSize: 10,
                             color: Config.colors[ColorVariables.secondary]!,

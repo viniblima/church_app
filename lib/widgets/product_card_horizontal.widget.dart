@@ -18,8 +18,14 @@ class ProductCardHorizontal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double price = product.discount != null
+        ? product.discount!.priceWithDiscount
+        : product.price;
+
     return Container(
       margin: const EdgeInsets.only(left: 16),
+      height: 140,
+      width: 140,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +66,7 @@ class ProductCardHorizontal extends StatelessWidget {
                   right: 4,
                   top: 4,
                   child: RateBadge(
-                    rate: product.rate,
+                    rate: product.rate ?? 0.0,
                   ),
                 ),
               ],
@@ -89,7 +95,7 @@ class ProductCardHorizontal extends StatelessWidget {
                       child: Text(
                         NumberFormat.simpleCurrency(
                           locale: Get.locale.toString(),
-                        ).format(product.priceWithDiscount),
+                        ).format(price),
                         style: TextStyle(
                           fontSize: 16,
                           color: Config.colors[ColorVariables.black]!,
@@ -101,7 +107,7 @@ class ProductCardHorizontal extends StatelessWidget {
                       child: Text(
                         '${product.maxQuantityInstallments}x de ${NumberFormat.simpleCurrency(
                           locale: Get.locale.toString(),
-                        ).format(product.priceWithDiscount / product.maxQuantityInstallments)}',
+                        ).format(price / product.maxQuantityInstallments)}',
                         style: TextStyle(
                           fontSize: 10,
                           color: Config.colors[ColorVariables.secondary]!,
@@ -116,7 +122,7 @@ class ProductCardHorizontal extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: LikeButton(
                     onPressLike: onPressLike,
-                    liked: product.liked,
+                    liked: product.liked ?? false,
                   ),
                 ),
               ],

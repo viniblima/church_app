@@ -1,4 +1,3 @@
-import 'package:church_app/controllers/favorite.controller.dart';
 import 'package:church_app/providers/favorite.provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -57,7 +56,7 @@ class _ModalNewListState extends State<ModalNewList> {
             height: 60,
             child: Button(
               onPress: () async {
-                bool created = await favoriteProvider.addCustomList(
+                await favoriteProvider.addCustomList(
                     title: titleController.text);
               },
               disabled: disabled,

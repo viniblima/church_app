@@ -4,6 +4,7 @@ import 'package:church_app/controllers/cart.controller.dart';
 import 'package:church_app/controllers/favorite.controller.dart';
 import 'package:church_app/controllers/login.controller.dart';
 import 'package:church_app/controllers/payment.controller.dart';
+import 'package:church_app/controllers/products.controllers.dart';
 import 'package:church_app/controllers/storage.controller.dart';
 import 'package:church_app/controllers/user.controller.dart';
 import 'package:flutter/foundation.dart';
@@ -56,6 +57,9 @@ class _MyAppState extends State<MyApp> {
 
   final LoginControllerX loginControllerX =
       Get.put<LoginControllerX>(LoginControllerX());
+
+  final ProductControllerX productControllerX =
+      Get.put<ProductControllerX>(ProductControllerX());
 
   @override
   Widget build(BuildContext context) {

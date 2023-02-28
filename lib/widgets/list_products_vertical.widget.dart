@@ -1,7 +1,11 @@
 import 'package:church_app/widgets/product_card_vertical.widget.dart';
+import 'package:church_app/widgets/skeleton_card_vertical.widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../controllers/products.controllers.dart';
 import '../models/product.model.dart';
+import '../providers/products.provider.dart';
 
 class ListProductsVertical extends StatefulWidget {
   const ListProductsVertical({Key? key}) : super(key: key);
@@ -11,109 +15,19 @@ class ListProductsVertical extends StatefulWidget {
 }
 
 class _ListProductVerticalState extends State<ListProductsVertical> {
-  //TODO: Substituir pela lista de post da API
-  static List<Map<String, dynamic>> list = [
-    {
-      "id": "0",
-      "name": "Product 0",
-      "category": {
-        "id": "0",
-        "name": "Crescimento0",
-        "color": 0xFF6BBE76,
-      },
-      "rate": 4.3,
-      "liked": true,
-      "quantity": 10,
-      "original_price": 5.49,
-      "price_with_discount": 4.99,
-      "percent_discount": 10.0,
-      'max_quantity_installments': 10,
-    },
-    {
-      "id": "1",
-      "name": "Product1",
-      "category": {
-        "id": "1",
-        "name": "Crescimento1",
-        "color": 0xFFFFFF00,
-      },
-      "rate": 4.1,
-      "liked": false,
-      "quantity": 10,
-      "original_price": 5.49,
-      "price_with_discount": 4.99,
-      "percent_discount": 10.0,
-      'max_quantity_installments': 10,
-    },
-    {
-      "id": "2",
-      "name": "Product2",
-      "category": {
-        "id": "2",
-        "name": "Crescimento2",
-        "color": 0xFFFFF000,
-      },
-      "rate": 4.3,
-      "liked": true,
-      "quantity": 10,
-      "original_price": 5.49,
-      "price_with_discount": 4.99,
-      "percent_discount": 10.0,
-      'max_quantity_installments': 10,
-    },
-    {
-      "id": "3",
-      "name": "Product3",
-      "category": {
-        "id": "3",
-        "name": "Crescimento3",
-        "color": 0xFFFFF000,
-      },
-      "rate": 4.3,
-      "liked": false,
-      "quantity": 10,
-      "original_price": 5.49,
-      "price_with_discount": 4.99,
-      "percent_discount": 10.0,
-      'max_quantity_installments': 10,
-    },
-    {
-      "id": "4",
-      "name": "Product4",
-      "category": {
-        "id": "4",
-        "name": "Crescimento4",
-        "color": 0xFFFFF000,
-      },
-      "rate": 4.3,
-      "liked": true,
-      "quantity": 10,
-      "original_price": 5.49,
-      "price_with_discount": 4.99,
-      "percent_discount": 10.0,
-      'max_quantity_installments': 10,
-    },
-    {
-      "id": "5",
-      "name": "Product5",
-      "category": {
-        "id": "5",
-        "name": "Crescimento5",
-        "color": 0xFFFFF000,
-      },
-      "rate": 4.3,
-      "liked": true,
-      "quantity": 10,
-      "original_price": 5.49,
-      "price_with_discount": 4.99,
-      "percent_discount": 10.0,
-      'max_quantity_installments': 10,
-    },
-  ];
+  final ProductProvider _productProvider = ProductProvider();
+
+  final ProductControllerX _productControllerX = Get.find<ProductControllerX>();
+
+  @override
+  void initState() {
+    _productProvider.getProducts();
+    super.initState();
+  }
 
   void onPressLike({required int index}) {
     setState(() {
-      list[index]['liked'] = !list[index]['liked'];
+      //list[index]['liked'] = !list[index]['liked'];
     });
   }
 
@@ -125,18 +39,45 @@ class _ListProductVerticalState extends State<ListProductsVertical> {
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
-        children: List.generate(
-          list.length,
-          (int index) {
-            Map<String, dynamic> product = list[index];
-            return ProductCardVertical(
-              product: Product.fromMap(product),
-              onPressLike: () => onPressLike(
-                index: index,
+        children: <Widget>[
+          Obx(
+            () => Column(
+              children: List.generate(
+                !_productControllerX.loadingListProducts.value
+                    ? _productControllerX.products.length
+                    : 5,
+                (int index) {
+                  if (_productControllerX.loadingListProducts.value) {
+                    return const SkeletonCardVertical();
+                  } else {
+                    Product product = _productControllerX.products[index];
+                    return ProductCardVertical(
+                      product: product,
+                      onPressLike: () => onPressLike(
+                        index: index,
+                      ),
+                    );
+                  }
+                },
               ),
-            );
-          },
-        ),
+            ),
+          ),
+
+          // Infinite Scroll
+          Obx(
+            () => _productControllerX.loadingMoreProducts.value ||
+                    _productControllerX.endListProducts
+                ? Container()
+                : Column(
+                    children: List.generate(
+                      5,
+                      (int index) {
+                        return const SkeletonCardVertical();
+                      },
+                    ),
+                  ),
+          ),
+        ],
       ),
     );
   }

@@ -40,7 +40,6 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage>
 
   @override
   void initState() {
-    // TODO: implement initState
     controller = TabController(
       length: paymentControllerX.cards.length + 1,
       vsync: this,
@@ -72,7 +71,11 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage>
     double totalPrice = 0.0;
 
     for (Product element in cartControllerX.products) {
-      totalPrice += element.priceWithDiscount;
+      double price = element.discount != null
+          ? element.discount!.priceWithDiscount
+          : element.price;
+
+      totalPrice += price;
     }
 
     return Scaffold(
@@ -122,8 +125,8 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage>
                                 cvv: '',
                                 name: '',
                               );
-                              var navigation =
-                                  await Get.toNamed('/add_new_card');
+
+                              await Get.toNamed('/add_new_card');
                               controller = TabController(
                                 length: paymentControllerX.cards.length + 1,
                                 vsync: this,
@@ -180,7 +183,6 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage>
                           enableInfiniteScroll: false,
                           onPageChanged:
                               (int index, CarouselPageChangedReason reason) {
-                            print(reason);
                             paymentControllerX.updateIndexInstallment(
                                 value: -1);
                             controller.animateTo(index);

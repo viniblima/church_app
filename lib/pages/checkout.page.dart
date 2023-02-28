@@ -1,7 +1,6 @@
 import 'package:church_app/widgets/button.widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:get/get.dart';
 
 import '../controllers/config.controller.dart';
@@ -81,7 +80,7 @@ class CheckoutPage extends StatelessWidget {
                   Text(
                     '${'your_order_will_shipped'.tr} 4 ${'days'.tr.toLowerCase()}',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 12,
                     ),
                   ),

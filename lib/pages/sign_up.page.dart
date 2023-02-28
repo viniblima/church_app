@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:church_app/controllers/login.controller.dart';
+import 'package:church_app/providers/user.provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
@@ -38,20 +39,34 @@ class _SignUpPageState extends State<SignUpPage> {
 
   bool obscureTextConfirmPassword = true;
 
-  void signUp(RoundedLoadingButtonController controller) async {
+  void signUp() async {
     if (loginControllerX.signUpLoading.value ||
         !_formKey.currentState!.validate()) {
-      controller.reset();
+      _btnController1.reset();
       return;
     }
 
-    Timer(const Duration(seconds: 3), () {
-      setState(() {
-        //backgroundIcon = Config.colors[ColorVariables.white]!;
-        //backgroundButton = Config.colors[ColorVariables.white]!;
-      });
-      controller.success();
-    });
+    UserProvider userProvider = UserProvider();
+
+    userProvider
+        .signUp(
+            email: emailController.text,
+            name: nameController.text,
+            password: passwordController.text)
+        .then(
+      ((Response response) {
+        setState(() {
+          if (response.statusCode == 201) {
+            _btnController1.success();
+            Timer(const Duration(seconds: 2), () {
+              Get.toNamed('/navigation_hero/?hero_tag=sign_up');
+            });
+          } else {
+            _btnController1.error();
+          }
+        });
+      }),
+    );
   }
 
   @override
@@ -100,6 +115,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         if (value == null || value.length < 4) {
                           return 'invalid_name'.tr;
                         }
+                        return null;
                       },
                     ),
                     const SizedBox(
@@ -119,6 +135,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 .hasMatch(value)) {
                           return 'invalid_email'.tr;
                         }
+                        return null;
                       },
                     ),
                     const SizedBox(
@@ -150,6 +167,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         if (value == null || value.length < 4) {
                           return 'password_too_short'.tr;
                         }
+                        return null;
                       },
                     ),
                     const SizedBox(
@@ -182,6 +200,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         if (value == null || value != passwordController.text) {
                           return 'passwords_do_not_match'.tr;
                         }
+                        return null;
                       },
                     ),
                     const SizedBox(
@@ -197,15 +216,15 @@ class _SignUpPageState extends State<SignUpPage> {
                             color: backgroundButton,
                             successIcon: Icons.check_circle_outline,
                             successColor: Config.colors[ColorVariables.primary],
-                            failedIcon: Icons.cottage,
+                            failedIcon: Icons.close_sharp,
                             controller: _btnController1,
                             valueColor: backgroundIcon,
                             onPressed: () =>
                                 !loginControllerX.signUpLoading.value
-                                    ? signUp(_btnController1)
+                                    ? signUp()
                                     : () {},
                             child: Hero(
-                              tag: 'pay_button',
+                              tag: 'sign_up_button',
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,

@@ -8,8 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Config {
-  static const baseUrl =
-      'http://ec2-54-88-247-171.compute-1.amazonaws.com:3000/api/v1';
+  //LOCAL
+  static const baseUrl = 'http://localhost:3000/api/v1';
+  //PRD
+  // static const baseUrl =
+  //     'http://ec2-54-88-247-171.compute-1.amazonaws.com:3000/api/v1';
 
   static Map<String, Widget> pages = const {
     'home': HomePage(),

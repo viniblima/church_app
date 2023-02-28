@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:church_app/controllers/config.controller.dart';
 import 'package:church_app/widgets/app_bar_tabs.widget.dart';
 import 'package:church_app/widgets/button_tabs.widget.dart';
+import 'package:church_app/widgets/side_menu.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import '../widgets/custom_tab_view.widget.dart';
@@ -24,6 +25,8 @@ class _InitialTabsPageState extends State<InitialTabsPage>
 
   late TabController controller;
   late int _currentPosition;
+
+  var scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -60,9 +63,12 @@ class _InitialTabsPageState extends State<InitialTabsPage>
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        appBar: const AppBarTabs(
+        key: scaffoldKey,
+        appBar: AppBarTabs(
           title: 'titulo',
+          onPressLeading: () => scaffoldKey.currentState!.openDrawer(),
         ),
+        drawer: SideMenu(),
         bottomNavigationBar: showPage
             ? TabBar(
                 controller: controller,

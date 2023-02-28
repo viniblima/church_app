@@ -50,7 +50,7 @@ class AddToCartButton extends StatelessWidget {
                   width: 3,
                 ),
                 Text(
-                  product.priceWithDiscount.toString(),
+                  product.price.toString(),
                   style: TextStyle(
                     color: Config.colors[ColorVariables.white],
                     fontSize: 14,

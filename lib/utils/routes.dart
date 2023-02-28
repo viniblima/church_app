@@ -3,6 +3,7 @@ import 'package:church_app/pages/cart.page.dart';
 import 'package:church_app/pages/checkout.page.dart';
 import 'package:church_app/pages/detail_product.widget.dart';
 import 'package:church_app/pages/login.page.dart';
+import 'package:church_app/pages/navigation_hero.page.dart';
 import 'package:church_app/pages/payment_methods.page.dart';
 import 'package:church_app/pages/sign_up.page.dart';
 import 'package:flutter/cupertino.dart';
@@ -42,10 +43,19 @@ List<GetPage<Widget>> routes = [
   ),
   GetPage(
     name: '/login',
-    page: () => LoginPage(),
+    page: () => const LoginPage(),
   ),
   GetPage(
     name: '/sign_up',
-    page: () => SignUpPage(),
+    page: () => const SignUpPage(),
   ),
+  GetPage(
+    name: '/navigation_hero/',
+    page: () => const NavigationHeroPage(),
+    transition: Transition.native,
+  ),
+  // GetPage(
+  //   name: '/navigation_hero/:url',
+  //   page: () => const NavigationHeroPage(),
+  // )
 ];
