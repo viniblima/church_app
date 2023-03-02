@@ -65,7 +65,8 @@ class _ModalListCustomListState extends State<ModalListCustomList> {
             ),
           ),
           Obx(
-            () => favoriteControllerX.loadingCustomLists.value
+            () => favoriteControllerX.loadingCustomLists.value ||
+                    favoriteControllerX.loadingAddProductToList.value
                 ? const Center(
                     child: CircularProgressIndicator(),
                   )
@@ -97,24 +98,39 @@ class _ModalListCustomListState extends State<ModalListCustomList> {
                     ),
                   ),
           ),
-          Obx(() => favoriteControllerX.loadingCustomLists.value
-              ? Container()
-              : Container(
-                  padding: const EdgeInsets.all(16),
-                  child: Button(
-                    disabled: favoriteControllerX.indexList < 0,
-                    onPress: () {},
-                    child: Center(
-                      child: Text(
-                        'add'.tr,
-                        style: TextStyle(
-                          color: Config.colors[ColorVariables.white],
-                          fontSize: 16,
+          Obx(
+            () => favoriteControllerX.loadingCustomLists.value ||
+                    favoriteControllerX.loadingAddProductToList.value
+                ? Container()
+                : Container(
+                    padding: const EdgeInsets.all(16),
+                    child: Button(
+                      disabled: favoriteControllerX.indexList < 0,
+                      onPress: () async {
+                        CustomList list = favoriteControllerX
+                            .customLists[favoriteControllerX.indexList.value];
+                        Get.back();
+                        await favoriteProvider.addProductToList(
+                          idList: list.id,
+                          listProducts: [
+                            {
+                              "ID": widget.product.id,
+                            }
+                          ],
+                        );
+                      },
+                      child: Center(
+                        child: Text(
+                          'add'.tr,
+                          style: TextStyle(
+                            color: Config.colors[ColorVariables.white],
+                            fontSize: 16,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ))
+          )
         ],
       ),
     );

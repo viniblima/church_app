@@ -19,7 +19,7 @@ class FavoriteProvider extends GetConnect {
       return null;
     }
 
-    _favoriteControllerX.updateLoadingAddProductList(value: true);
+    //_favoriteControllerX.updateLoadingAddProductList(value: true);
 
     Response response = await _httpProvider.httpPost(
       address: "/my_lists/add_product",
@@ -28,6 +28,8 @@ class FavoriteProvider extends GetConnect {
         "Products": listProducts,
       },
     );
+
+    print(response.body);
 
     if (response.statusCode == 200) {
       List<CustomList> list = _favoriteControllerX.customLists;
@@ -44,9 +46,9 @@ class FavoriteProvider extends GetConnect {
       }
       list[index].products = ls;
 
-      _favoriteControllerX.updateCustomLists(
-        list: list,
-      );
+      // _favoriteControllerX.updateCustomLists(
+      //   list: list,
+      // );
     }
 
     _favoriteControllerX.updateLoadingAddProductList(value: false);
