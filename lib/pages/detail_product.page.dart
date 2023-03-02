@@ -3,6 +3,7 @@ import 'package:church_app/widgets/about_product.widget.dart';
 import 'package:church_app/widgets/add_to_cart_button.widget.dart';
 import 'package:church_app/widgets/cart_button.widget.dart';
 import 'package:church_app/widgets/like_button.widget.dart';
+import 'package:church_app/widgets/options_button.widget.dart';
 import 'package:church_app/widgets/related_products.widget.dart';
 import 'package:church_app/widgets/size_guide_button.widget.dart';
 import 'package:church_app/widgets/size_slider.widget.dart';
@@ -71,6 +72,17 @@ class _DetailProductPageState extends State<DetailProductPage> {
                     ),
                   ),
                   Positioned(
+                    right: 60,
+                    top: 8,
+                    child: SizedBox(
+                      width: 40,
+                      height: 40,
+                      child: OptionsButton(
+                        product: product,
+                      ),
+                    ),
+                  ),
+                  Positioned(
                     right: 8,
                     top: 8,
                     child: SizedBox(
@@ -82,15 +94,6 @@ class _DetailProductPageState extends State<DetailProductPage> {
                       ),
                     ),
                   ),
-                  /* const Positioned(
-                    right: 8,
-                    top: 8,
-                    child: SizedBox(
-                      width: 40,
-                      height: 40,
-                      child: CartButton(),
-                    ),
-                  ), */
                 ],
               ),
             ),

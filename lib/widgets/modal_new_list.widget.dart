@@ -1,3 +1,4 @@
+import 'package:church_app/models/product.model.dart';
 import 'package:church_app/providers/favorite.provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,7 +7,12 @@ import '../controllers/config.controller.dart';
 import 'button.widget.dart';
 
 class ModalNewList extends StatefulWidget {
-  const ModalNewList({Key? key}) : super(key: key);
+  final Product? product;
+
+  const ModalNewList({
+    this.product,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<ModalNewList> createState() => _ModalNewListState();
@@ -56,8 +62,18 @@ class _ModalNewListState extends State<ModalNewList> {
             height: 60,
             child: Button(
               onPress: () async {
+                print(widget.product);
                 await favoriteProvider.addCustomList(
-                    title: titleController.text);
+                  title: titleController.text,
+                  list: widget.product != null
+                      ? [
+                          {
+                            "ID": widget.product!.id,
+                          },
+                        ]
+                      : [],
+                );
+                Get.back();
               },
               disabled: disabled,
               child: Center(

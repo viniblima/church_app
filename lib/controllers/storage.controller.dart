@@ -38,4 +38,11 @@ class StorageControllerX extends GetxController {
       aOptions: _getAndroidOptions(),
     );
   }
+
+  Future<void> deleteAll() async {
+    return await storage.deleteAll(
+      iOptions: _getIOSOptions(),
+      aOptions: _getAndroidOptions(),
+    );
+  }
 }

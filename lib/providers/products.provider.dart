@@ -16,6 +16,7 @@ class ProductProvider extends GetConnect {
     Response response = await _httpProvider.httpGet(
       address: "/products/highlights",
     );
+    print(response.statusCode);
 
     if (response.statusCode == 200) {
       List<Product> ps = [];

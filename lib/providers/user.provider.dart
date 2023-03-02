@@ -13,7 +13,6 @@ class UserProvider extends GetConnect {
       obj: {},
       refreshRequisition: true,
     );
-
     if (response.statusCode == 200) {
       await _userControllerX.updateToken(
         newToken: response.body["Auth"]["Token"]["Hash"],

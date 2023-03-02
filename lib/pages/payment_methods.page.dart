@@ -237,10 +237,13 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage>
                                   paymentControllerX.indexInstallment.value,
                               totalPrice: totalPrice,
                               onChange: (int? value) {
-                                setState(() {
-                                  paymentControllerX.updateIndexInstallment(
-                                      value: value!);
-                                });
+                                setState(
+                                  () {
+                                    paymentControllerX.updateIndexInstallment(
+                                      value: value!,
+                                    );
+                                  },
+                                );
                               },
                             ),
                           );

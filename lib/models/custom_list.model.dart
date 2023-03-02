@@ -12,9 +12,9 @@ class CustomList {
   });
 
   CustomList.fromMap(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    products = convertList(json['products']);
+    id = json['ID'];
+    name = json['Name'];
+    products = convertList(json['Products']);
   }
 
   List<Product> convertList(List<Map<String, dynamic>> list) {

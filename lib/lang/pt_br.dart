@@ -9,6 +9,9 @@ const Map<String, String> ptBR = {
   "size": "Tamanho",
   "about": "Sobre",
   "add_to_cart": "Adicionar ao carrinho",
+  "add_to_list": "Adicionar à lista",
+  "add_to_one_of_your_lists": "Adicionar à uma de suas listas",
+  "create_new_list": "Criar uma nova lista",
   "show_more": "Mostrar mais",
   "show_less": "Mostrar menos",
   "keep_shopping": "Continuar comprando",
@@ -58,4 +61,5 @@ const Map<String, String> ptBR = {
   "account": "Conta",
   "full_name": "Nome completo",
   "confirm_password": "Confirmar senha",
+  "exit_app": "Sair do app",
 };

@@ -9,6 +9,9 @@ const Map<String, String> enUs = {
   "size": "Size",
   "about": "About",
   "add_to_cart": "Add to cart",
+  "add_to_list": "Add to list",
+  "add_to_one_of_your_lists": "Add to one of your lists",
+  "create_new_list": "Create a new list",
   "show_more": "Show more",
   "show_less": "Show less",
   "keep_shopping": "Keep shopping",
@@ -52,4 +55,5 @@ const Map<String, String> enUs = {
   "account": "Account",
   "full_name": "Full name",
   "confirm_password": "Confirm password",
+  "exit_app": "Exit app",
 };

@@ -1,7 +1,7 @@
 import 'package:church_app/pages/add_new_card.page.dart';
 import 'package:church_app/pages/cart.page.dart';
 import 'package:church_app/pages/checkout.page.dart';
-import 'package:church_app/pages/detail_product.widget.dart';
+import 'package:church_app/pages/detail_product.page.dart';
 import 'package:church_app/pages/login.page.dart';
 import 'package:church_app/pages/navigation_hero.page.dart';
 import 'package:church_app/pages/payment_methods.page.dart';

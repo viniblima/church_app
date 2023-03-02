@@ -64,4 +64,15 @@ class UserControllerX extends GetxController {
 
     return user;
   }
+
+  Future<void> deleteUser() async {
+    final StorageControllerX storageControllerX =
+        Get.find<StorageControllerX>();
+
+    token = null;
+    refreshToken = null;
+    user = null;
+
+    await storageControllerX.deleteAll();
+  }
 }

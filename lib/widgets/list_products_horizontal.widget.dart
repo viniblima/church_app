@@ -50,8 +50,7 @@ class _ListProductsHorizontalState extends State<ListProductsHorizontal> {
             (int index) {
               if (_productControllerX.loadingHighlightProducts.value) {
                 return const SkeletonCardHorizontal();
-              }
-              {
+              } else {
                 Product product = _productControllerX.highlightProducts[index];
                 return ProductCardHorizontal(
                   product: product,

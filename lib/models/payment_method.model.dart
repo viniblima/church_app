@@ -5,8 +5,11 @@ class PaymentMethod {
   late Function onPress;
   late IconData icon;
 
-  PaymentMethod(
-      {required this.name, required this.onPress, required this.icon});
+  PaymentMethod({
+    required this.name,
+    required this.onPress,
+    required this.icon,
+  });
 
   PaymentMethod.fromMap(Map<String, dynamic> json) {
     name = json['name'];
