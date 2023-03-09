@@ -11,17 +11,16 @@ class FavoriteProvider extends GetConnect {
   final FavoriteControllerX _favoriteControllerX =
       Get.find<FavoriteControllerX>();
 
-  Future<Response?> addProductToList({
-    required String idList,
-    required List<Map<String, String>> listProducts,
-  }) async {
+  Future<Response?> addProductToList(
+      {required String idList,
+      required List<Map<String, String>> listProducts}) async {
     if (_favoriteControllerX.loadingAddProductToList.value) {
       return null;
     }
 
     //_favoriteControllerX.updateLoadingAddProductList(value: true);
 
-    Response response = await _httpProvider.httpPost(
+    Response? response = await _httpProvider.httpPost(
       address: "/my_lists/add_product",
       obj: {
         "CustomUserListID": idList,
@@ -29,9 +28,7 @@ class FavoriteProvider extends GetConnect {
       },
     );
 
-    print(response.body);
-
-    if (response.statusCode == 200) {
+    if (response!.statusCode == 200) {
       List<CustomList> list = _favoriteControllerX.customLists;
 
       int index = list.indexWhere((CustomList l) => l.id == idList);
@@ -62,11 +59,11 @@ class FavoriteProvider extends GetConnect {
 
     _favoriteControllerX.updateLoadingCustomList(value: true);
 
-    Response response = await _httpProvider.httpGet(
+    Response? response = await _httpProvider.httpGet(
       address: "/my_lists",
     );
-    print(response.statusCode);
-    if (response.statusCode == 200) {
+
+    if (response!.statusCode == 200) {
       List<CustomList> list = [];
 
       for (int i = 0; i < (response.body as List).length; i++) {
@@ -92,11 +89,37 @@ class FavoriteProvider extends GetConnect {
     return response;
   }
 
-  Future<bool> addCustomList({
-    required String title,
-    required List<Map<String, String>> list,
-  }) async {
-    Response response = await _httpProvider.httpPost(
+  Future<Response> getLikedProducts() async {
+    Response? response = await _httpProvider.httpGet(
+      address: "/like",
+    );
+    _favoriteControllerX.updateLoadingFavorites(value: true);
+
+    if (response!.statusCode == 200) {
+      List<Product> list = [];
+
+      List<Map<String, dynamic>> fs =
+          List<Map<String, dynamic>>.from(response.body);
+
+      for (int i = 0; i < fs.length; i++) {
+        Map<String, dynamic> json = fs[i];
+        json["Like"] = true;
+        list.add(
+          Product.fromMap(
+            response.body[i],
+          ),
+        );
+      }
+      _favoriteControllerX.updateFavorites(list: list);
+    }
+
+    _favoriteControllerX.updateLoadingFavorites(value: false);
+    return response;
+  }
+
+  Future<bool> addCustomList(
+      {required String title, required List<Map<String, String>> list}) async {
+    Response? response = await _httpProvider.httpPost(
       address: "/my_lists",
       obj: {
         "Name": title,
@@ -104,9 +127,7 @@ class FavoriteProvider extends GetConnect {
       },
     );
 
-    print(response.body);
-
-    if (response.statusCode == 201) {
+    if (response!.statusCode == 201) {
       _favoriteControllerX.addList(
         newList: CustomList.fromMap({
           "ID": response.body["CustomUserList"]['ID'],

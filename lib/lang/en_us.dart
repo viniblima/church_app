@@ -56,4 +56,17 @@ const Map<String, String> enUs = {
   "full_name": "Full name",
   "confirm_password": "Confirm password",
   "exit_app": "Exit app",
+  "liked_products": "Liked products",
+  "items": "Items",
+  "remove": "Remove",
+  "no_liked_products": "No liked product(s)",
+  "to_view_this_area_must_be_logged":
+      "To view this area, you must be logged in",
+  "user": "User",
+  "welcome_back": "Welcombe back",
+  "click_here_to_login": "Click here to login",
+  "notifications": "Notifications",
+  "my_shopping": "My shopping",
+  "edit_my_data": "Edit my data",
+  "my_data": "My data",
 };

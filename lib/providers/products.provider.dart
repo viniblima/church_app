@@ -10,15 +10,30 @@ class ProductProvider extends GetConnect {
 
   final ProductControllerX _productControllerX = Get.find<ProductControllerX>();
 
-  Future<Response> getHighlightProducts() async {
+  Future<Product?> getProductById({required String id}) async {
+    Response? response = await _httpProvider.httpGet(
+      address: "/products/?id=$id",
+      protectedAPI: false,
+    );
+
+    if (response!.statusCode == 200) {
+      return Product.fromMap(response.body);
+    }
+    return null;
+  }
+
+  Future<Response?> getHighlightProducts() async {
+    if (_productControllerX.loadingHighlightProducts.value) {
+      return null;
+    }
     _productControllerX.updateloadingHighlight(value: true);
 
-    Response response = await _httpProvider.httpGet(
+    Response? response = await _httpProvider.httpGet(
       address: "/products/highlights",
+      protectedAPI: false,
     );
-    print(response.statusCode);
 
-    if (response.statusCode == 200) {
+    if (response!.statusCode == 200) {
       List<Product> ps = [];
       for (int i = 0; i < (response.body["Highlights"] as List).length; i++) {
         ps.add(Product.fromMap(response.body["Highlights"][i]));
@@ -26,8 +41,9 @@ class ProductProvider extends GetConnect {
 
       _productControllerX.updateHighlightProducts(ps: ps);
     }
-
-    _productControllerX.updateloadingHighlight(value: false);
+    Timer(const Duration(seconds: 2), () {
+      _productControllerX.updateloadingHighlight(value: false);
+    });
     return response;
   }
 
@@ -39,11 +55,12 @@ class ProductProvider extends GetConnect {
 
     _productControllerX.updateloadingMoreProducts(value: true);
 
-    Response response = await _httpProvider.httpGet(
+    Response? response = await _httpProvider.httpGet(
       address: "/products/?page=${_productControllerX.page}",
+      protectedAPI: false,
     );
 
-    if (response.statusCode == 200) {
+    if (response!.statusCode == 200) {
       _productControllerX.endListProducts = response.body["End"];
 
       List<Product> ps = _productControllerX.products;
@@ -70,11 +87,12 @@ class ProductProvider extends GetConnect {
     }
     _productControllerX.updateloadingListProducts(value: true);
 
-    Response response = await _httpProvider.httpGet(
+    Response? response = await _httpProvider.httpGet(
       address: "/products/?page=${_productControllerX.page}",
+      protectedAPI: false,
     );
 
-    if (response.statusCode == 200) {
+    if (response!.statusCode == 200) {
       _productControllerX.endListProducts = response.body["End"];
 
       List<Product> ps = [];
@@ -84,8 +102,19 @@ class ProductProvider extends GetConnect {
 
       _productControllerX.updateProducts(ps: ps);
     }
+    Timer(const Duration(seconds: 2), () {
+      _productControllerX.updateloadingListProducts(value: false);
+    });
+    return response;
+  }
 
-    _productControllerX.updateloadingListProducts(value: false);
+  Future<Response?> likeProduct({required String idProduct}) async {
+    Response? response = await _httpProvider.httpPost(
+      address: "/like",
+      obj: {
+        "ID": idProduct,
+      },
+    );
 
     return response;
   }

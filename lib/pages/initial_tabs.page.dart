@@ -68,7 +68,7 @@ class _InitialTabsPageState extends State<InitialTabsPage>
           title: 'titulo',
           onPressLeading: () => scaffoldKey.currentState!.openDrawer(),
         ),
-        drawer: SideMenu(),
+        // drawer: const SideMenu(),
         bottomNavigationBar: showPage
             ? TabBar(
                 controller: controller,
@@ -99,57 +99,6 @@ class _InitialTabsPageState extends State<InitialTabsPage>
                 onScroll: (position) {},
               )
             : Container(),
-        /* floatingActionButton: const SizedBox(
-          height: 50,
-          width: 50,
-          child: CartButton(
-            height: 50,
-          ),
-        ),
-      ), */
-        /* floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Config.colors[ColorVariables.white],
-          onPressed: () => Get.bottomSheet(
-            const ModalCart(),
-            isDismissible: true,
-          ),
-          child: SizedBox(
-            height: 40,
-            width: 40,
-            child: Stack(
-              children: <Widget>[
-                Positioned(
-                  child: Center(
-                    child: Icon(
-                      Icons.shopping_cart_outlined,
-                      size: 16,
-                      color: Config.colors[ColorVariables.black],
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 3,
-                  left: 50 / 2 - 2,
-                  child: Obx(
-                    () => cartControllerX.products.isEmpty
-                        ? Container()
-                        : Center(
-                            child: Text(
-                              cartControllerX.products.length > 9
-                                  ? '9+'
-                                  : '${cartControllerX.products.length}',
-                              style: TextStyle(
-                                  fontSize: 8,
-                                  color: Config.colors[ColorVariables.black]),
-                            ),
-                          ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ), */
       ),
     );
   }

@@ -8,12 +8,19 @@ class FavoriteControllerX extends GetxController {
   RxList<CustomList> customLists = <CustomList>[].obs;
   RxBool loadingCustomLists = RxBool(false);
 
+  RxBool loadingFavorites = RxBool(false);
+
   RxBool loadingAddProductToList = RxBool(false);
 
   Rx<int> indexList = (-1).obs;
 
-  void addToFavorites({required Product product}) {
-    favorites.add(product);
+  void updateFavorites({required List<Product> list}) {
+    favorites.value = list;
+    update();
+  }
+
+  void updateLoadingFavorites({required bool value}) {
+    loadingFavorites.value = value;
     update();
   }
 

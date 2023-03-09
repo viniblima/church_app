@@ -62,4 +62,17 @@ const Map<String, String> ptBR = {
   "full_name": "Nome completo",
   "confirm_password": "Confirmar senha",
   "exit_app": "Sair do app",
+  "liked_products": "Produtos curtidos",
+  "items": "Itens",
+  "remove": "Remover",
+  "no_liked_products": "Sem produtos curtidos",
+  "to_view_this_area_must_be_logged":
+      "Para ver essa área, voce precisa estar logado",
+  "user": "Usuária(o)",
+  "welcome_back": "Seja bem-vindo de volta",
+  "click_here_to_login": "Clique aqui para logar",
+  "notifications": "Notificações",
+  "my_shopping": "Minhas compras",
+  "edit_my_data": "Editar meus dados",
+  "my_data": "Meus dados",
 };

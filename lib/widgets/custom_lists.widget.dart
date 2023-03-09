@@ -33,15 +33,18 @@ class _CustomListsState extends State<CustomLists> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          'my_lists'.tr,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
+        Padding(
+          padding: EdgeInsets.all(16),
+          child: Text(
+            'my_lists'.tr,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
           ),
         ),
         SizedBox(
-          height: 160,
+          height: 400,
           child: Obx(
             () => ListView(
               shrinkWrap: true,
@@ -59,7 +62,9 @@ class _CustomListsState extends State<CustomLists> {
                     } else {
                       CustomList customList =
                           favoriteControllerX.customLists[index];
-                      return FavoriteListButton(customList: customList);
+                      return FavoriteListButton(
+                        customList: customList,
+                      );
                     }
                   },
                 )

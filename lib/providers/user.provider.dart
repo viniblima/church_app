@@ -8,12 +8,12 @@ class UserProvider extends GetConnect {
   final UserControllerX _userControllerX = Get.find<UserControllerX>();
 
   Future<Response> refreshToken() async {
-    Response response = await _httpProvider.httpPost(
+    Response? response = await _httpProvider.httpPost(
       address: "/token/refresh",
       obj: {},
       refreshRequisition: true,
     );
-    if (response.statusCode == 200) {
+    if (response!.statusCode == 200) {
       await _userControllerX.updateToken(
         newToken: response.body["Auth"]["Token"]["Hash"],
         expiresIn: response.body["Auth"]["Token"]["ExpiresIn"],
@@ -36,12 +36,13 @@ class UserProvider extends GetConnect {
       "Password": password
     };
 
-    Response response = await _httpProvider.httpPost(
+    Response? response = await _httpProvider.httpPost(
       address: "/user/signup",
       obj: body,
+      protectedAPI: false,
     );
 
-    if (response.statusCode == 201) {
+    if (response!.statusCode == 201) {
       await _userControllerX.updateUser(
         userMap: response.body["User"],
       );
@@ -64,13 +65,16 @@ class UserProvider extends GetConnect {
       "Email": email,
       "Password": password,
     };
+    print("login que chamou");
 
-    Response response = await _httpProvider.httpPost(
+    Response? response = await _httpProvider.httpPost(
       address: "/user/signin",
       obj: body,
+      protectedAPI: false,
+      isModalLogin: true,
     );
 
-    if (response.statusCode == 200) {
+    if (response!.statusCode == 200) {
       await _userControllerX.updateUser(
         userMap: response.body["User"],
       );

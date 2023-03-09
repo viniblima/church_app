@@ -1,3 +1,4 @@
+import 'package:church_app/controllers/user.controller.dart';
 import 'package:church_app/widgets/product_card_vertical.widget.dart';
 import 'package:church_app/widgets/skeleton_card_vertical.widget.dart';
 import 'package:flutter/material.dart';
@@ -21,14 +22,45 @@ class _ListProductVerticalState extends State<ListProductsVertical> {
 
   @override
   void initState() {
-    _productProvider.getProducts();
+    //_productProvider.getProducts();
     super.initState();
   }
 
-  void onPressLike({required int index}) {
-    setState(() {
-      //list[index]['liked'] = !list[index]['liked'];
-    });
+  void onPressLike({required int index}) async {
+    Product p = updateLikeInList(index: index);
+    Response? response = await _productProvider.likeProduct(
+      idProduct: p.id,
+    );
+    if (response != null && response.statusCode == 200) {
+      _productControllerX.updateProduct(index: index, p: p);
+    }
+
+    UserControllerX userControllerX = Get.find<UserControllerX>();
+
+    if (userControllerX.token == null) {
+      updateLikeInList(index: index);
+    }
+    setState(() {});
+  }
+
+  Product updateLikeInList({required int index}) {
+    List<Product> ls = _productControllerX.products;
+
+    ls[index].liked = !ls[index].liked;
+
+    int indexHighlights = _productControllerX.highlightProducts
+        .indexWhere((Product element) => element.id == ls[index].id);
+
+    if (indexHighlights > -1) {
+      List<Product> lsh = _productControllerX.highlightProducts;
+      lsh[indexHighlights].liked = !lsh[indexHighlights].liked;
+      _productControllerX.updateHighlightProduct(
+        index: indexHighlights,
+        p: lsh[indexHighlights],
+      );
+    }
+
+    return ls[index];
   }
 
   @override
@@ -45,7 +77,7 @@ class _ListProductVerticalState extends State<ListProductsVertical> {
               children: List.generate(
                 !_productControllerX.loadingListProducts.value
                     ? _productControllerX.products.length
-                    : 5,
+                    : _productControllerX.lastProductsLength,
                 (int index) {
                   if (_productControllerX.loadingListProducts.value) {
                     return const SkeletonCardVertical();

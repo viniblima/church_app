@@ -29,9 +29,8 @@ class ProductCardVertical extends StatelessWidget {
       height: 150,
       child: TextButton(
         onPressed: () {
-          Get.toNamed('/detail_product', arguments: {
-            'product': product,
-          });
+          Get.toNamed(
+              '/detail_product/?product_id=${product.id}&origin=vertical');
         },
         style: ButtonStyle(
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -53,7 +52,7 @@ class ProductCardVertical extends StatelessWidget {
                 16.0,
               ),
               child: Hero(
-                tag: 'tag${product.id}',
+                tag: 'tag_${product.id}_vertical',
                 child: FadeInImage(
                   height: 140,
                   width: 140,
@@ -91,7 +90,7 @@ class ProductCardVertical extends StatelessWidget {
                         width: 30,
                         child: LikeButton(
                           onPressLike: onPressLike,
-                          liked: product.liked ?? false,
+                          liked: product.liked,
                           size: LikeButtonSize.small,
                         ),
                       ),

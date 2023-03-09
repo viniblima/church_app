@@ -26,6 +26,7 @@ class _ProductsPageState extends State<ProductsPage> {
 
     await _productProvider.getHighlightProducts();
     await _productProvider.getProducts();
+    // setState(() {});
   }
 
   final _controller = ScrollController();
@@ -47,7 +48,14 @@ class _ProductsPageState extends State<ProductsPage> {
         }
       }
     });
+    getProducts();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -60,8 +68,8 @@ class _ProductsPageState extends State<ProductsPage> {
           child: Column(
             children: const <Widget>[
               SearchPosts(),
-              CategoriesSlider(),
-              ListProductsHorizontal(),
+              // CategoriesSlider(),
+              // ListProductsHorizontal(),
               ListProductsVertical(),
             ],
           ),

@@ -12,6 +12,9 @@ class ProductControllerX extends GetxController {
   RxList<Product> highlightProducts = RxList.empty();
   RxBool loadingHighlightProducts = RxBool(false);
 
+  int lastProductsLength = 5;
+  int lastHightlightLength = 5;
+
   void updateProducts({required List<Product> ps}) {
     products.value = ps;
     update();
@@ -22,6 +25,14 @@ class ProductControllerX extends GetxController {
     update();
   }
 
+  void updateProduct({
+    required int index,
+    required Product p,
+  }) {
+    products[index] = p;
+    update();
+  }
+
   void updateloadingMoreProducts({required bool value}) {
     loadingMoreProducts.value = value;
     update();
@@ -29,6 +40,14 @@ class ProductControllerX extends GetxController {
 
   void updateHighlightProducts({required List<Product> ps}) {
     highlightProducts.value = ps;
+    update();
+  }
+
+  void updateHighlightProduct({
+    required int index,
+    required Product p,
+  }) {
+    highlightProducts[index] = p;
     update();
   }
 

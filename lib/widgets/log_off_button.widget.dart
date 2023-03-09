@@ -13,18 +13,25 @@ class LogOffButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Button(
-      type: ButtonVariables.outline,
-      onPress: () async {
-        await userControllerX.deleteUser();
-        Get.offAndToNamed('login');
-      },
-      child: Center(
-        child: Text(
-          'exit_app'.tr,
-          style: TextStyle(
-            color: Config.colors[ColorVariables.primary],
-            fontSize: 16,
+    return Container(
+      padding: const EdgeInsets.only(
+        bottom: 32,
+        left: 16,
+        right: 16,
+      ),
+      child: Button(
+        type: ButtonVariables.outline,
+        onPress: () async {
+          await userControllerX.deleteUser();
+          Get.offAndToNamed('login');
+        },
+        child: Center(
+          child: Text(
+            'exit_app'.tr,
+            style: TextStyle(
+              color: Config.colors[ColorVariables.primary],
+              fontSize: 16,
+            ),
           ),
         ),
       ),

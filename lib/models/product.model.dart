@@ -6,7 +6,7 @@ class Product {
   late String name;
   late Category? category;
   late double? rate;
-  late bool? liked;
+  late bool liked;
   late double price;
 
   late int quantity;
@@ -31,7 +31,7 @@ class Product {
     name = json['Name'];
     //category = Category.fromMap(json['category']);
     rate = json['rate'];
-    liked = json['liked'];
+    liked = json['Like'];
     price = json['Price'].runtimeType == int
         ? double.parse(json['Price'].toString())
         : json['Price'];

@@ -36,10 +36,10 @@ class AppBarTabs extends StatelessWidget implements PreferredSizeWidget {
           width: 10,
         ),
       ],
-      leading: IconButton(
-        icon: const Icon(Icons.menu),
-        onPressed: () => onPressLeading(),
-      ),
+      // leading: IconButton(
+      //   icon: const Icon(Icons.menu),
+      //   onPressed: () => onPressLeading(),
+      // ),
       title: Text(title),
       centerTitle: true,
       elevation: 0.0,

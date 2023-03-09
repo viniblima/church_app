@@ -65,6 +65,19 @@ class UserControllerX extends GetxController {
     return user;
   }
 
+  Future<User> retrieveUser() async {
+    final StorageControllerX storageControllerX =
+        Get.find<StorageControllerX>();
+
+    Map<String, dynamic> m = {
+      'ID': await storageControllerX.get(key: 'user_id'),
+      'Name': await storageControllerX.get(key: 'user_name'),
+      'Email': await storageControllerX.get(key: 'user_email'),
+    };
+
+    return User.fromMap(m);
+  }
+
   Future<void> deleteUser() async {
     final StorageControllerX storageControllerX =
         Get.find<StorageControllerX>();

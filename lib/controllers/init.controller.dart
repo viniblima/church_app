@@ -38,9 +38,9 @@ class InitControllerX extends GetxController {
       String? refreshTokenExpiresIn = await _storageControllerX.get(
         key: 'refresh_token_expires_in',
       );
-      print(DateTime.parse(refreshTokenExpiresIn!).isAfter(
-        DateTime.now(),
-      ));
+      // print(DateTime.parse(refreshTokenExpiresIn!).isAfter(
+      //   DateTime.now(),
+      // ));
       if (tokenExpiresIn != null &&
           token != null &&
           refreshTokenExpiresIn != null &&
@@ -51,17 +51,22 @@ class InitControllerX extends GetxController {
 
         userControllerX.token = token;
         userControllerX.refreshToken = refreshToken;
-        print(DateTime.parse(tokenExpiresIn).isBefore(DateTime.now()));
+
+        userControllerX.user = await userControllerX.retrieveUser();
+
         if (DateTime.parse(tokenExpiresIn).isBefore(DateTime.now())) {
           UserProvider userProvider = UserProvider();
 
           await userProvider.refreshToken();
         }
 
-        Get.offAndToNamed('initial_tabs');
-      } else {
-        Get.offAndToNamed('login');
+        //Get.offAndToNamed('initial_tabs');
       }
+      // } else {
+      //   Get.offAndToNamed('login');
+      // }
+
+      Get.offAndToNamed('initial_tabs');
     });
   }
 }

@@ -13,8 +13,8 @@ class AddNewList extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            height: 120,
-            width: 120,
+            height: 400,
+            width: 240,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(
                 12.0,
@@ -25,7 +25,7 @@ class AddNewList extends StatelessWidget {
                   spreadRadius: 1,
                   blurRadius: 10,
                   offset: const Offset(0, 0),
-                )
+                ),
               ],
               color: Config.colors[ColorVariables.white]!,
             ),
@@ -35,8 +35,8 @@ class AddNewList extends StatelessWidget {
                 isDismissible: true,
               ),
               child: Container(
-                height: 120,
-                width: 120,
+                height: 400,
+                width: 240,
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 4,
