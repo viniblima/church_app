@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({Key? key}) : super(key: key);
@@ -10,26 +8,26 @@ class SideMenu extends StatelessWidget {
     return Drawer(
       child: ListView(
         children: <Widget>[
-          DrawerHeader(
-            child: Text('Drawer Header'),
+          const DrawerHeader(
             decoration: BoxDecoration(
               color: Colors.blue,
             ),
+            child: Text('Drawer Header'),
           ),
           ListTile(
-            title: Text('Home'),
+            title: const Text('Home'),
             //tileColor: Get.currentRoute == '/home' ? Colors.grey[300] : null,
             //titleColor: Colors.grey[300],
             onTap: () {},
           ),
           ListTile(
-            title: Text('Home'),
+            title: const Text('Home'),
             //tileColor: Get.currentRoute == '/home' ? Colors.grey[300] : null,
             //titleColor: Colors.grey[300],
             onTap: () {},
           ),
           ListTile(
-            title: Text('Home'),
+            title: const Text('Home'),
             //tileColor: Get.currentRoute == '/home' ? Colors.grey[300] : null,
             //titleColor: Colors.grey[300],
             onTap: () {},

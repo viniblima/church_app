@@ -2,7 +2,6 @@ import 'package:church_app/models/custom_list.model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/config.controller.dart';
-import '../models/product.model.dart';
 
 class FavoriteListButton extends StatelessWidget {
   final CustomList customList;
@@ -67,8 +66,6 @@ class FavoriteListButton extends StatelessWidget {
                         children: List.generate(
                           customList.products.length,
                           (int index) {
-                            Product product = customList.products[index];
-
                             return Container(
                               margin: const EdgeInsets.only(left: 16),
                               decoration: BoxDecoration(
@@ -84,10 +81,7 @@ class FavoriteListButton extends StatelessWidget {
                                   16.0,
                                 ),
                                 child: FadeInImage(
-                                  // height: 120,
-                                  // width: 120,
                                   fit: BoxFit.cover,
-
                                   imageErrorBuilder: (BuildContext context,
                                       Object exception,
                                       StackTrace? stackTrace) {

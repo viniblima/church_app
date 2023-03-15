@@ -1,5 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:church_app/controllers/products.controllers.dart';
+import 'package:church_app/controllers/products.controller.dart';
 import 'package:church_app/models/product.model.dart';
 import 'package:church_app/providers/products.provider.dart';
 import 'package:church_app/widgets/skeleton_card_horizontal.widget.dart';
@@ -70,51 +70,37 @@ class _ListProductsHorizontalState extends State<ListProductsHorizontal> {
         top: 32,
       ),
       height: 240,
-      child: Obx(
-        () => _productControllerX.loadingHighlightProducts.value
-            ? ListView(
+      child: FutureBuilder(
+          future: _productProvider.getHighlightProducts(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return ListView(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                physics: const BouncingScrollPhysics(),
+                children: List.generate(
+                    _productControllerX.highlightProducts.length, (int index) {
+                  Product product =
+                      _productControllerX.highlightProducts[index];
+                  return ProductCardHorizontal(
+                    product: product,
+                    onPressLike: () => onPressLike(
+                      index: index,
+                    ),
+                  );
+                }),
+              );
+            } else {
+              return ListView(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
                 children: List.generate(3, (int index) {
                   return const SkeletonCardHorizontal();
                 }),
-              )
-            : CarouselSlider(
-                // shrinkWrap: true,
-                // scrollDirection: Axis.horizontal,
-                // // physics: const BouncingScrollPhysics(),
-                options: CarouselOptions(
-                  //clipBehavior: Clip.antiAlias,
-                  viewportFraction: 0.4,
-                  aspectRatio: 16 / 9,
-                  padEnds: false,
-                  enlargeCenterPage: false,
-                  pageSnapping: false,
-                  enableInfiniteScroll: false,
-                ),
-
-                items: List.generate(
-                  !_productControllerX.loadingHighlightProducts.value
-                      ? _productControllerX.highlightProducts.length
-                      : _productControllerX.lastHightlightLength,
-                  (int index) {
-                    // if (_productControllerX.loadingHighlightProducts.value) {
-                    //   return const SkeletonCardHorizontal();
-                    // } else {
-                    Product product =
-                        _productControllerX.highlightProducts[index];
-                    return ProductCardHorizontal(
-                      product: product,
-                      onPressLike: () => onPressLike(
-                        index: index,
-                      ),
-                    );
-                    // }
-                  },
-                ),
-              ),
-      ),
+              );
+            }
+          }),
     );
   }
 }

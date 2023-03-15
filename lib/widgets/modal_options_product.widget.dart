@@ -38,8 +38,8 @@ class ModalOptionProduct extends StatelessWidget {
             child: ListTile(
               title: Text('add_to_list'.tr),
               subtitle: Text('add_to_one_of_your_lists'.tr),
-              contentPadding: EdgeInsets.all(16),
-              trailing: Icon(Icons.arrow_forward_ios),
+              contentPadding: const EdgeInsets.all(16),
+              trailing: const Icon(Icons.arrow_forward_ios),
             ),
           ),
         ],

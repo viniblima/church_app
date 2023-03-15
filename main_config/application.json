@@ -8,10 +8,10 @@
             }
         },
         {
-            "name": "products",
+            "name": "my_shopping",
             "button_tab": {
-                "icon": "products",
-                "name": "products"
+                "icon": "my_shopping",
+                "name": "my_shopping"
             }
         },
         {

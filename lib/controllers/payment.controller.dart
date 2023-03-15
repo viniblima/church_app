@@ -1,3 +1,4 @@
+import 'package:church_app/controllers/config.controller.dart';
 import 'package:get/get.dart';
 
 import '../models/credit_card.model.dart';
@@ -24,19 +25,32 @@ class PaymentControllerX extends GetxController {
   ).obs;
 
   Rx<int> indexInstallment = (-1).obs;
+  Rx<int> indexMethod = (-1).obs;
 
-  addCard({required CreditCard card}) {
+  Rx<PaymentMethods> method = (PaymentMethods.pix).obs;
+
+  void addCard({required CreditCard card}) {
     cards.add(card);
     update();
   }
 
-  updateIndexInstallment({required int value}) {
+  void updateIndexInstallment({required int value}) {
     indexInstallment.value = value;
     update();
   }
 
-  changeNewCard({required CreditCard item}) {
+  void updateIndexMethod({required int value}) {
+    indexMethod.value = value;
+    update();
+  }
+
+  void changeNewCard({required CreditCard item}) {
     newCard.value = item;
+    update();
+  }
+
+  void updateMethod({required PaymentMethods paymentMethod}) {
+    method.value = paymentMethod;
     update();
   }
 }

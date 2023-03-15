@@ -4,7 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:church_app/controllers/config.controller.dart';
 import 'package:church_app/controllers/payment.controller.dart';
 import 'package:church_app/models/credit_card.model.dart';
-import 'package:church_app/models/payment_method.model.dart';
+import 'package:church_app/providers/purchase.provider.dart';
 import 'package:church_app/widgets/credit_card.widget.dart';
 import 'package:church_app/widgets/payment_method_item.widget.dart';
 import 'package:flutter/material.dart';
@@ -50,30 +50,62 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage>
 
   //TODO: Implementar pagamento
   void _doSomething(RoundedLoadingButtonController controller) async {
-    if (paymentControllerX.indexInstallment < 0) {
+    if (paymentControllerX.indexInstallment < 0 &&
+        paymentControllerX.indexMethod < 0) {
       return;
     }
-    Timer(const Duration(seconds: 3), () {
-      setState(() {
-        backgroundIcon = Config.colors[ColorVariables.primary]!;
-      });
-      cartControllerX.clearCart();
-      controller.success();
 
+    PurchaseProvider _purchaseProvider = PurchaseProvider();
+
+    List<Map<String, dynamic>> products = [];
+
+    for (int x = 0; x < cartControllerX.mapProducts.length; x++) {
+      products.add(
+        {
+          "ID": (cartControllerX.mapProducts[x]["product"] as Product).id,
+          "Quantity": cartControllerX.mapProducts[x]["quantity"],
+        },
+      );
+    }
+
+    Response? response = await _purchaseProvider.makePurchase(
+        method: paymentControllerX.method.value,
+        installments: paymentControllerX.indexInstallment.value < 0
+            ? 1
+            : paymentControllerX.indexInstallment.value,
+        products: products);
+    print(response!.statusCode);
+    print(response.body);
+    if (response.statusCode != 200) {
       Timer(const Duration(seconds: 2), () {
-        Get.offAndToNamed('checkout');
+        controller.error();
       });
-    });
+    } else {
+      Timer(const Duration(seconds: 3), () {
+        setState(() {
+          backgroundIcon = Config.colors[ColorVariables.primary]!;
+        });
+        cartControllerX.clearCart();
+        controller.success();
+
+        Timer(const Duration(seconds: 2), () {
+          Get.offAndToNamed('checkout');
+          paymentControllerX.updateIndexMethod(value: -1);
+          paymentControllerX.updateIndexInstallment(value: -1);
+        });
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     double totalPrice = 0.0;
 
-    for (Product element in cartControllerX.products) {
-      double price = element.discount != null
-          ? element.discount!.priceWithDiscount
-          : element.price;
+    for (Map<String, dynamic> element in cartControllerX.mapProducts) {
+      Product product = element["product"] as Product;
+      double price = product.discount != null
+          ? product.discount!.priceWithDiscount
+          : product.price;
 
       totalPrice += price;
     }
@@ -185,6 +217,10 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage>
                               (int index, CarouselPageChangedReason reason) {
                             paymentControllerX.updateIndexInstallment(
                                 value: -1);
+
+                            paymentControllerX.updateMethod(
+                                paymentMethod: PaymentMethods.creditCard);
+                            paymentControllerX.updateIndexMethod(value: -1);
                             controller.animateTo(index);
                             setState(() {});
                           },
@@ -210,16 +246,31 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage>
                     children: <Widget>[
                       Text('other_payment_methods'.tr),
                       Column(
-                        children: List.generate(
-                          Config.paymentMethods.length,
-                          (int index) {
-                            PaymentMethod method = PaymentMethod.fromMap(
-                                Config.paymentMethods[index]);
-                            return PaymentMethodItem(
-                              method: method,
-                            );
-                          },
-                        ),
+                        // children: List.generate(
+                        //   Config.paymentMethods.length,
+                        //   (int index) {
+                        //     PaymentMethod method = PaymentMethod.fromMap(
+                        //         Config.paymentMethods[index]);
+                        //     return PaymentMethodItem(
+                        //       method: method,
+                        //     );
+                        //   },
+                        // ),
+                        children: <Widget>[
+                          PaymentMethodItem(
+                            method: PaymentMethods.pix,
+                            groupValue: paymentControllerX.indexMethod.value,
+                            onChange: (int? value) {
+                              setState(
+                                () {
+                                  paymentControllerX.updateIndexMethod(
+                                    value: value!,
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ],
                       )
                     ],
                   ),
@@ -326,7 +377,8 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage>
               SizedBox(
                 width: 110,
                 child: Obx(
-                  () => paymentControllerX.indexInstallment < 0
+                  () => paymentControllerX.indexInstallment < 0 &&
+                          paymentControllerX.indexMethod < 0
                       ? Button(
                           onPress: () {},
                           type: ButtonVariables.outline,
@@ -361,7 +413,8 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage>
                           controller: _btnController1,
                           valueColor: backgroundIcon,
                           onPressed: () =>
-                              paymentControllerX.indexInstallment >= 0
+                              paymentControllerX.indexInstallment >= 0 ||
+                                      paymentControllerX.indexMethod >= 0
                                   ? _doSomething(_btnController1)
                                   : () {},
                           child: Hero(
@@ -374,8 +427,9 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage>
                                   'pay_now'.tr,
                                   style: TextStyle(
                                     color: paymentControllerX
-                                                .indexInstallment >=
-                                            0
+                                                    .indexInstallment >=
+                                                0 ||
+                                            paymentControllerX.indexMethod >= 0
                                         ? Config.colors[ColorVariables.primary]
                                         : Config.colors[
                                             ColorVariables.highlightPrimary],
@@ -387,8 +441,9 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage>
                                     Icons.keyboard_arrow_right_sharp,
                                     size: 18,
                                     color: paymentControllerX
-                                                .indexInstallment >=
-                                            0
+                                                    .indexInstallment >=
+                                                0 ||
+                                            paymentControllerX.indexMethod >= 0
                                         ? Config.colors[ColorVariables.primary]
                                         : Config.colors[
                                             ColorVariables.highlightPrimary],

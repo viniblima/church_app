@@ -22,10 +22,11 @@ class _ModalCartState extends State<ModalCart> {
 
     CartControllerX cartControllerX = Get.find<CartControllerX>();
 
-    for (Product element in cartControllerX.products) {
-      double price = element.discount != null
-          ? element.discount!.priceWithDiscount
-          : element.price;
+    for (Map<String, dynamic> element in cartControllerX.mapProducts) {
+      Product product = element["product"] as Product;
+      double price = product.discount != null
+          ? product.discount!.priceWithDiscount
+          : product.price;
 
       totalPrice += price;
     }
@@ -42,19 +43,18 @@ class _ModalCartState extends State<ModalCart> {
       padding: const EdgeInsets.only(top: 16),
       child: Scaffold(
         body: Obx(
-          () => cartControllerX.products.isEmpty
+          () => cartControllerX.mapProducts.isEmpty
               ? Center(
                   child: Text('your_cart_is_empty'.tr),
                 )
               : ListView(
                   shrinkWrap: true,
                   children: List.generate(
-                    cartControllerX.products.length,
+                    cartControllerX.mapProducts.length,
                     (int index) {
-                      Product product = cartControllerX.products[index];
-
                       return CartItem(
-                        product: product,
+                        index: index,
+                        mapProduct: cartControllerX.mapProducts[index],
                         onPressExclude: () {
                           setState(
                             () {
@@ -113,7 +113,7 @@ class _ModalCartState extends State<ModalCart> {
                           Get.back();
                           Get.toNamed('payment_methods');
                         },
-                        disabled: cartControllerX.products.isEmpty,
+                        disabled: cartControllerX.mapProducts.isEmpty,
                         child: Text(
                           'checkout'.tr.toUpperCase(),
                           style: TextStyle(

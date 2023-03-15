@@ -1,4 +1,3 @@
-import 'package:church_app/widgets/select_button.widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -94,12 +93,12 @@ class _SizeSelectorState extends State<SizeSelector> {
               return SizedBox(
                 height: 20,
                 width: 20,
-                child: SelectButton(
-                  text: size['name'],
-                  bold: false,
-                  onPress: () => onPress(index: index),
-                  selected: sizes[index]['selected'],
-                ),
+                // child: SelectButton(
+                //   text: size['name'],
+                //   bold: false,
+                //   onPress: () => onPress(index: index),
+                //   selected: sizes[index]['selected'],
+                // ),
               );
             },
           ),

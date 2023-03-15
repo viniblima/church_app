@@ -3,8 +3,9 @@ import 'package:church_app/widgets/product_card_vertical.widget.dart';
 import 'package:church_app/widgets/skeleton_card_vertical.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-import '../controllers/products.controllers.dart';
+import '../controllers/products.controller.dart';
 import '../models/product.model.dart';
 import '../providers/products.provider.dart';
 
@@ -22,9 +23,20 @@ class _ListProductVerticalState extends State<ListProductsVertical> {
 
   @override
   void initState() {
-    //_productProvider.getProducts();
+    _pagingController.addPageRequestListener((pageKey) {
+      _fetchPage(pageKey);
+    });
     super.initState();
   }
+
+  @override
+  void dispose() {
+    _pagingController.dispose();
+    super.dispose();
+  }
+
+  final PagingController<int, Product> _pagingController =
+      PagingController(firstPageKey: 0);
 
   void onPressLike({required int index}) async {
     Product p = updateLikeInList(index: index);
@@ -63,54 +75,118 @@ class _ListProductVerticalState extends State<ListProductsVertical> {
     return ls[index];
   }
 
+  Future<void> _fetchPage(int pageKey) async {
+    try {
+      final List<Product> newItems = await _productProvider.getProducts();
+
+      if (_productControllerX.endListProducts) {
+        _pagingController.appendLastPage(newItems);
+      } else {
+        final nextPageKey = pageKey + newItems.length;
+
+        _productControllerX.page += 1;
+        _pagingController.appendPage(newItems, nextPageKey);
+      }
+    } catch (error) {
+      _pagingController.error = error;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 600,
       margin: const EdgeInsets.only(
         top: 32,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        children: <Widget>[
-          Obx(
-            () => Column(
-              children: List.generate(
-                !_productControllerX.loadingListProducts.value
-                    ? _productControllerX.products.length
-                    : _productControllerX.lastProductsLength,
-                (int index) {
-                  if (_productControllerX.loadingListProducts.value) {
-                    return const SkeletonCardVertical();
-                  } else {
-                    Product product = _productControllerX.products[index];
-                    return ProductCardVertical(
-                      product: product,
-                      onPressLike: () => onPressLike(
-                        index: index,
-                      ),
-                    );
-                  }
-                },
-              ),
+      child: PagedListView(
+        // physics: NeverScrollableScrollPhysics(),
+        pagingController: _pagingController,
+        builderDelegate: PagedChildBuilderDelegate<Product>(
+          itemBuilder: (BuildContext context, Product product, int index) =>
+              ProductCardVertical(
+            product: product,
+            onPressLike: () => onPressLike(
+              index: index,
             ),
           ),
-
-          // Infinite Scroll
-          Obx(
-            () => _productControllerX.loadingMoreProducts.value ||
-                    _productControllerX.endListProducts
-                ? Container()
-                : Column(
-                    children: List.generate(
-                      5,
-                      (int index) {
-                        return const SkeletonCardVertical();
-                      },
-                    ),
-                  ),
+          newPageProgressIndicatorBuilder: (_) => Column(
+            children: List.generate(
+              5,
+              (int index) => const SkeletonCardVertical(),
+            ),
           ),
-        ],
+        ),
       ),
+      // child: Column(
+      //   children: [
+      //     FutureBuilder(
+      //       future: _productProvider.getProducts(),
+      //       builder: (BuildContext context, AsyncSnapshot snapshot) {
+      //         if (snapshot.connectionState == ConnectionState.done) {
+      //           return Column(
+      //             children: List.generate(
+      //               _productControllerX.products.length,
+      //               (int index) {
+      //                 Product product = _productControllerX.products[index];
+      // return ProductCardVertical(
+      //   product: product,
+      //   onPressLike: () => onPressLike(
+      //     index: index,
+      //   ),
+      // );
+      //               },
+      //             ),
+      //           );
+      //         } else {
+      //           return Column(
+      //             children: List.generate(
+      //               5,
+      //               (int index) {
+      //                 return const SkeletonCardVertical();
+      //               },
+      //             ),
+      //           );
+      //         }
+      //       },
+      //     ),
+      //     // child: Obx(() => !_productControllerX.loadingListProducts.value
+      //     //         ? Column(
+      //     //             children: List.generate(
+      //     //               _productControllerX.products.length,
+      //     //               (int index) {
+      //     //                 Product product = _productControllerX.products[index];
+      //     //                 return ProductCardVertical(
+      //     //                   product: product,
+      //     //                   onPressLike: () => onPressLike(
+      //     //                     index: index,
+      //     //                   ),
+      //     //                 );
+      //     //               },
+      //     //             ),
+      //     //           )
+      //     //         : Container(
+      //     //             child: Text("teste"),
+      //     //           )
+
+      //     // // Infinite Scroll
+      //     Obx(
+      //       () => _productControllerX.loadingMoreProducts.value ||
+      //               _productControllerX.endListProducts
+      //           ? Container()
+      //           : Column(
+      //               children: List.generate(
+      //                 5,
+      //                 (int index) {
+      //                   return const SkeletonCardVertical();
+      //                 },
+      //               ),
+      //             ),
+      //     ),
+      //   ],
+      // ),
+      // // ),
     );
   }
 }

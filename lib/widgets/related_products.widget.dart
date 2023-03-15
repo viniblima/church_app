@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'list_products_horizontal.widget.dart';
-
 class RelatedProducts extends StatefulWidget {
   const RelatedProducts({Key? key}) : super(key: key);
 

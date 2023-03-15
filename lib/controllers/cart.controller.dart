@@ -2,20 +2,28 @@ import 'package:church_app/models/product.model.dart';
 import 'package:get/get.dart';
 
 class CartControllerX extends GetxController {
-  RxList<Product> products = <Product>[].obs;
+  RxList<Map<String, dynamic>> mapProducts = <Map<String, dynamic>>[].obs;
 
-  addToCart({required Product product}) {
-    products.add(product);
+  void addToCart({required Product product, required int quantity}) {
+    mapProducts.add({
+      "product": product,
+      "quantity": quantity,
+    });
     update();
   }
 
-  clearCart() {
-    products.clear();
+  void updateItemCart({required int index, required int quantity}) {
+    mapProducts[index]["quantity"] = quantity;
     update();
   }
 
-  removeItem({required int index}) {
-    products.removeAt(index);
+  void clearCart() {
+    mapProducts.clear();
+    update();
+  }
+
+  void removeItem({required int index}) {
+    mapProducts.removeAt(index);
     update();
   }
 }

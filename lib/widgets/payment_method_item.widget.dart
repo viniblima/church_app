@@ -1,46 +1,45 @@
-import 'package:church_app/models/payment_method.model.dart';
 import 'package:flutter/material.dart';
 
+import '../controllers/config.controller.dart';
+
 class PaymentMethodItem extends StatelessWidget {
-  final PaymentMethod method;
+  final PaymentMethods method;
+  final int? groupValue;
+  final Function(int?)? onChange;
+
   const PaymentMethodItem({
     required this.method,
+    required this.groupValue,
+    required this.onChange,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Center(
-                    child: Icon(
-                      method.icon,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 16,
-                  ),
-                  Text(
-                    method.name,
-                  ),
-                ],
-              ),
-              const Icon(
-                Icons.keyboard_arrow_right,
-              ),
-            ],
-          ),
+    return Container(
+      // padding: const EdgeInsets.all(16),
+      color: Config.colors[ColorVariables.white],
+      alignment: Alignment.centerLeft,
+      // color: Colors.red,
+      child: RadioListTile(
+        value: Config.paymentMap[method]!["value"] as int,
+        title: Row(
+          children: [
+            Icon(
+              Config.paymentMap[method]!["icon"],
+              color: Config.colors[ColorVariables.black],
+            ),
+            const SizedBox(
+              width: 16,
+            ),
+            Text(
+              Config.paymentMap[method]!["name"],
+            ),
+          ],
         ),
-        const Divider(),
-      ],
+        groupValue: groupValue,
+        onChanged: onChange,
+      ),
     );
   }
 }

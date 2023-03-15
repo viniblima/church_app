@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:church_app/controllers/cart.controller.dart';
+import 'package:church_app/controllers/categories.controller.dart';
 import 'package:church_app/controllers/favorite.controller.dart';
 import 'package:church_app/controllers/login.controller.dart';
 import 'package:church_app/controllers/payment.controller.dart';
-import 'package:church_app/controllers/products.controllers.dart';
+import 'package:church_app/controllers/products.controller.dart';
+import 'package:church_app/controllers/purchase.controller.dart';
 import 'package:church_app/controllers/storage.controller.dart';
 import 'package:church_app/controllers/user.controller.dart';
 import 'package:flutter/foundation.dart';
@@ -60,6 +62,12 @@ class _MyAppState extends State<MyApp> {
 
   final ProductControllerX productControllerX =
       Get.put<ProductControllerX>(ProductControllerX());
+
+  final CategoriesControllerX categoriesControllerX =
+      Get.put<CategoriesControllerX>(CategoriesControllerX());
+
+  final PurchaseControllerX purchaseControllerX =
+      Get.put<PurchaseControllerX>(PurchaseControllerX());
 
   @override
   Widget build(BuildContext context) {

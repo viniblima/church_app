@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import '../controllers/config.controller.dart';
 
-import 'dart:developer' as developer;
+// import 'dart:developer' as developer;
 
 class HttpProvider extends GetConnect {
   Future<Response?> httpGet(

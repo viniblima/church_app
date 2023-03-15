@@ -75,4 +75,10 @@ const Map<String, String> ptBR = {
   "my_shopping": "Minhas compras",
   "edit_my_data": "Editar meus dados",
   "my_data": "Meus dados",
+  "buy_again": "Comprar novamente",
+  "sended": "Enviado",
+  "in_preparation": "Em preparação",
+  "delivered": "Entregue",
+  "add_all_to_cart": "Adicionar tudo ao carrinho",
+  "remove_all_from_cart": "Remover do carrinho",
 };

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:skeletons/skeletons.dart';
 
 class SkeletonLikedProuct extends StatelessWidget {
@@ -11,7 +9,7 @@ class SkeletonLikedProuct extends StatelessWidget {
     return SizedBox(
         height: 60,
         child: Row(
-          children: <Widget>[
+          children: const <Widget>[
             SizedBox(
               child: SkeletonAvatar(),
             ),

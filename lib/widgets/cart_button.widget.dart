@@ -53,13 +53,13 @@ class CartButton extends StatelessWidget {
             top: 3,
             left: height / 2 - 2,
             child: Obx(
-              () => cartControllerX.products.isEmpty
+              () => cartControllerX.mapProducts.isEmpty
                   ? Container()
                   : Center(
                       child: Text(
-                        cartControllerX.products.length > 9
+                        cartControllerX.mapProducts.length > 9
                             ? '9+'
-                            : '${cartControllerX.products.length}',
+                            : '${cartControllerX.mapProducts.length}',
                         style: TextStyle(
                             fontSize: 8,
                             color: Config.colors[ColorVariables.black]),
@@ -105,13 +105,13 @@ class FloatingCartButton extends StatelessWidget {
               top: 3,
               left: 50 / 2 - 2,
               child: Obx(
-                () => cartControllerX.products.isEmpty
+                () => cartControllerX.mapProducts.isEmpty
                     ? Container()
                     : Center(
                         child: Text(
-                          cartControllerX.products.length > 9
+                          cartControllerX.mapProducts.length > 9
                               ? '9+'
-                              : '${cartControllerX.products.length}',
+                              : '${cartControllerX.mapProducts.length}',
                           style: TextStyle(
                               fontSize: 8,
                               color: Config.colors[ColorVariables.black]),

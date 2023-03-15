@@ -34,7 +34,7 @@ class _CustomListsState extends State<CustomLists> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Text(
             'my_lists'.tr,
             style: const TextStyle(

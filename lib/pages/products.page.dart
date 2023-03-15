@@ -1,8 +1,7 @@
-import 'package:church_app/controllers/products.controllers.dart';
+import 'package:church_app/controllers/products.controller.dart';
+import 'package:church_app/providers/categories.provider.dart';
 import 'package:church_app/providers/products.provider.dart';
 import 'package:church_app/widgets/categories_slider.widget.dart';
-import 'package:church_app/widgets/list_products_horizontal.widget.dart';
-
 import 'package:church_app/widgets/search_posts.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,6 +17,7 @@ class ProductsPage extends StatefulWidget {
 
 class _ProductsPageState extends State<ProductsPage> {
   final ProductProvider _productProvider = ProductProvider();
+  final CategoryProvider _categoryProvider = CategoryProvider();
   final ProductControllerX _productControllerX = Get.find<ProductControllerX>();
 
   Future getProducts() async {
@@ -26,6 +26,7 @@ class _ProductsPageState extends State<ProductsPage> {
 
     await _productProvider.getHighlightProducts();
     await _productProvider.getProducts();
+    // await _categoryProvider.getCategories();
     // setState(() {});
   }
 
@@ -48,7 +49,6 @@ class _ProductsPageState extends State<ProductsPage> {
         }
       }
     });
-    getProducts();
     super.initState();
   }
 
@@ -68,9 +68,9 @@ class _ProductsPageState extends State<ProductsPage> {
           child: Column(
             children: const <Widget>[
               SearchPosts(),
-              // CategoriesSlider(),
+              CategoriesSlider(),
               // ListProductsHorizontal(),
-              ListProductsVertical(),
+              // ListProductsVertical(),
             ],
           ),
         ),

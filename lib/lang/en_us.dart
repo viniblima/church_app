@@ -69,4 +69,10 @@ const Map<String, String> enUs = {
   "my_shopping": "My shopping",
   "edit_my_data": "Edit my data",
   "my_data": "My data",
+  "buy_again": "Buy again",
+  "sended": "Sended",
+  "in_preparation": "In preparation",
+  "delivered": "Delivered",
+  "add_all_to_cart": "Add all to cart",
+  "remove_all_from_cart": "Remove from cart",
 };

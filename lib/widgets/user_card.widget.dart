@@ -57,7 +57,7 @@ class _UserCardState extends State<UserCard> {
               Container(
                 height: 80,
                 width: 80,
-                padding: EdgeInsets.all(12),
+                padding: const EdgeInsets.all(12),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(
                     40.0,
@@ -77,7 +77,7 @@ class _UserCardState extends State<UserCard> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 8,
               ),
               Column(

@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:church_app/controllers/config.controller.dart';
 import 'package:church_app/widgets/app_bar_tabs.widget.dart';
 import 'package:church_app/widgets/button_tabs.widget.dart';
-import 'package:church_app/widgets/side_menu.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import '../widgets/custom_tab_view.widget.dart';

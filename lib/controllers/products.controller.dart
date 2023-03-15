@@ -8,6 +8,7 @@ class ProductControllerX extends GetxController {
   RxList<Product> products = RxList.empty();
   RxBool loadingListProducts = RxBool(false);
   RxBool loadingMoreProducts = RxBool(false);
+  RxBool loadingDetailProduct = RxBool(false);
 
   RxList<Product> highlightProducts = RxList.empty();
   RxBool loadingHighlightProducts = RxBool(false);
@@ -53,6 +54,11 @@ class ProductControllerX extends GetxController {
 
   void updateloadingHighlight({required bool value}) {
     loadingHighlightProducts.value = value;
+    update();
+  }
+
+  void updateLoadingDetailProduct({required bool value}) {
+    loadingDetailProduct.value = value;
     update();
   }
 }

@@ -1,5 +1,6 @@
 import 'package:church_app/controllers/config.controller.dart';
 import 'package:church_app/widgets/button.widget.dart';
+import 'package:church_app/widgets/button_quantity_cart.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -7,17 +8,21 @@ import 'package:intl/intl.dart';
 import '../models/product.model.dart';
 
 class CartItem extends StatelessWidget {
-  final Product product;
+  final Map<String, dynamic> mapProduct;
   final Function onPressExclude;
+  final int index;
 
   const CartItem({
-    required this.product,
+    required this.mapProduct,
     required this.onPressExclude,
+    required this.index,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Product product = mapProduct["product"];
+
     return Column(
       children: <Widget>[
         Container(
@@ -48,10 +53,22 @@ class CartItem extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      product.name,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              product.name,
+                            ),
+                            const Text('info de frete'),
+                          ],
+                        ),
+                        ButtonQuantityCart(index: index)
+                      ],
                     ),
-                    const Text('info de frete'),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[

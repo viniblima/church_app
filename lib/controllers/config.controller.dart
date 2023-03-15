@@ -2,6 +2,7 @@ import 'package:church_app/pages/events.page.dart';
 import 'package:church_app/pages/favorites.page.dart';
 import 'package:church_app/pages/home.page.dart';
 import 'package:church_app/pages/my_account.page.dart';
+import 'package:church_app/pages/my_shopping.page.dart';
 import 'package:church_app/pages/posts.page.dart';
 import 'package:church_app/pages/products.page.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ class Config {
     'my_account': MyAccountPage(),
     'products': ProductsPage(),
     'favorites': FavoritesPage(),
+    'my_shopping': MyShoppingPage(),
   };
 
   static Map<String, IconData> icons = const {
@@ -30,6 +32,7 @@ class Config {
     'my_account': Icons.person,
     'products': Icons.production_quantity_limits_rounded,
     'favorites': Icons.favorite,
+    'my_shopping': Icons.shopping_bag_outlined,
   };
 
   static Map<ColorVariables, Color> colors = const {
@@ -46,18 +49,57 @@ class Config {
     ColorVariables.purple: Color(0xFF5F1584),
   };
 
-  static List<Map<String, dynamic>> paymentMethods = [
-    {
-      'name': '${'credit'.tr} / ${'debit'.tr} ${'card'.tr}',
-      'on_press': () {},
-      'icon': Icons.credit_card,
+  // static List<Map<String, dynamic>> paymentMethods = [
+  //   // {
+  //   //   'name': '${'credit'.tr} / ${'debit'.tr} ${'card'.tr}',
+  //   //   'on_press': () {},
+  //   //   'icon': Icons.credit_card,
+  //   // },
+  //   {
+  //     "name": "Pix",
+  //     "on_press": () {},
+  //     "icon": Icons.pix,
+  //     "value": 0,
+  //   },
+  // ];
+
+  static Map<PaymentMethods, Map<String, dynamic>> paymentMap = {
+    PaymentMethods.pix: {
+      "name": "Pix",
+      "on_press": () {},
+      "icon": Icons.pix,
+      "value": 2,
     },
-    {
-      'name': 'Pix',
-      'on_press': () {},
-      'icon': Icons.pix,
-    },
-  ];
+    PaymentMethods.creditCard: {
+      "name": "${"credit".tr} ${"card".tr.toLowerCase()}",
+      "on_press": () {},
+      "icon": Icons.credit_card,
+      "value": 0,
+    }
+  };
+
+  static Map<StatusPurchaseProduct, String> statusTranslated = const {
+    StatusPurchaseProduct.created: "in_preparation",
+    StatusPurchaseProduct.sended: "sended",
+    StatusPurchaseProduct.delivered: "delivered",
+  };
+
+  static Map<int, StatusPurchaseProduct> statusPurchase = const {
+    0: StatusPurchaseProduct.created,
+    1: StatusPurchaseProduct.sended,
+    2: StatusPurchaseProduct.delivered,
+  };
+}
+
+enum PaymentMethods {
+  pix,
+  creditCard,
+}
+
+enum StatusPurchaseProduct {
+  created,
+  sended,
+  delivered,
 }
 
 enum ColorVariables {

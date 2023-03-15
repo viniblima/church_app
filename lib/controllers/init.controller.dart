@@ -1,3 +1,4 @@
+import 'package:church_app/controllers/login.controller.dart';
 import 'package:church_app/controllers/storage.controller.dart';
 import 'package:church_app/controllers/user.controller.dart';
 import 'package:church_app/providers/user.provider.dart';
@@ -53,6 +54,10 @@ class InitControllerX extends GetxController {
         userControllerX.refreshToken = refreshToken;
 
         userControllerX.user = await userControllerX.retrieveUser();
+
+        LoginControllerX loginControllerX = Get.find<LoginControllerX>();
+
+        loginControllerX.updateLogged(value: true);
 
         if (DateTime.parse(tokenExpiresIn).isBefore(DateTime.now())) {
           UserProvider userProvider = UserProvider();

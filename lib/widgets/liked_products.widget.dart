@@ -74,17 +74,19 @@ class _LikedProductsState extends State<LikedProducts> {
               ],
             ),
           ),
-          Container(
-            height: 200,
-            child: !_favoriteControllerX.loadingFavorites.value &&
-                    _favoriteControllerX.favorites.isEmpty
-                ? Center(
-                    child: Text(
-                      "no_liked_products".tr,
-                      style: TextStyle(),
-                    ),
-                  )
-                : null,
+          Obx(
+            () => SizedBox(
+              height: 200,
+              child: !_favoriteControllerX.loadingFavorites.value &&
+                      _favoriteControllerX.favorites.isEmpty
+                  ? Center(
+                      child: Text(
+                        "no_liked_products".tr,
+                        style: const TextStyle(),
+                      ),
+                    )
+                  : null,
+            ),
           )
         ],
       ),

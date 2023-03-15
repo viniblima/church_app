@@ -1,9 +1,5 @@
 import 'package:church_app/providers/favorite.provider.dart';
-import 'package:church_app/providers/products.provider.dart';
-import 'package:church_app/widgets/button.widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 import '../controllers/config.controller.dart';
@@ -29,9 +25,8 @@ class CardLikedProduct extends StatelessWidget {
         height: 120,
         child: TextButton(
           onPressed: () async {
-            await Get.toNamed('/detail_product', arguments: {
-              'product_id': product.id,
-            });
+            await Get.toNamed(
+                '/detail_product/?product_id=${product.id}&origin=liked');
             await _favoriteProvider.getLikedProducts();
           },
           style: ButtonStyle(
@@ -57,7 +52,7 @@ class CardLikedProduct extends StatelessWidget {
                       16.0,
                     ),
                     child: Hero(
-                      tag: 'tag${product.id}',
+                      tag: 'tag_${product.id}_liked',
                       child: FadeInImage(
                         height: 100,
                         width: 100,

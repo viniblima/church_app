@@ -53,7 +53,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Column(
-          children: [
+          children: const [
             UserCard(),
           ],
         ),
@@ -91,7 +91,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
               children: <Widget>[
                 Column(
                   children: <Widget>[
-                    SizedBox(
+                    const SizedBox(
                       height: 48,
                     ),
                     ...List.generate(
@@ -118,7 +118,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                 ListTile(
                                   title: Text(o["name"]!),
                                   //subtitle: Text("add_to_one_of_your_lists'.tr),
-                                  contentPadding: EdgeInsets.all(16),
+                                  contentPadding: const EdgeInsets.all(16),
                                   trailing: Icon(
                                     Icons.arrow_forward_ios,
                                     color:

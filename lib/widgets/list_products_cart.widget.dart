@@ -1,11 +1,10 @@
 import 'package:church_app/widgets/product_card.widget.dart';
 import 'package:flutter/material.dart';
-import '../models/product.model.dart';
 
 class ListProductsCart extends StatelessWidget {
-  final List<Product> products;
+  final List<Map<String, dynamic>> productsMap;
   const ListProductsCart({
-    required this.products,
+    required this.productsMap,
     Key? key,
   }) : super(key: key);
 
@@ -15,10 +14,12 @@ class ListProductsCart extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       children: List.generate(
-        products.length,
+        productsMap.length,
         (index) {
-          Product product = products[index];
-          return ProductCard(product: product);
+          return ProductCard(
+            productMap: productsMap[index],
+            index: index,
+          );
         },
       ),
     );

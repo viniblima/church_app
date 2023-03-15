@@ -57,7 +57,11 @@ class _ModalLoginState extends State<ModalLogin> {
     });
     if (response.statusCode == 200) {
       _btnController1.success();
+
       Timer(const Duration(seconds: 2), () {
+        LoginControllerX loginControllerX = Get.find<LoginControllerX>();
+
+        loginControllerX.updateLogged(value: true);
         Get.back(result: {
           "logged": true,
         });

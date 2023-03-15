@@ -21,10 +21,10 @@ class CartPage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Obx(
-              () => cartControllerX.products.isEmpty
+              () => cartControllerX.mapProducts.isEmpty
                   ? const Text('vazio')
                   : ListProductsCart(
-                      products: cartControllerX.products,
+                      productsMap: cartControllerX.mapProducts,
                     ),
             ),
           ],

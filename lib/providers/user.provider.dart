@@ -65,7 +65,6 @@ class UserProvider extends GetConnect {
       "Email": email,
       "Password": password,
     };
-    print("login que chamou");
 
     Response? response = await _httpProvider.httpPost(
       address: "/user/signin",

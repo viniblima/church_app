@@ -62,7 +62,6 @@ class _ModalNewListState extends State<ModalNewList> {
             height: 60,
             child: Button(
               onPress: () async {
-                print(widget.product);
                 await favoriteProvider.addCustomList(
                   title: titleController.text,
                   list: widget.product != null

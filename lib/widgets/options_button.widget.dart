@@ -48,7 +48,7 @@ class OptionsButton extends StatelessWidget {
         isDismissible: true,
       ),
       child: RotationTransition(
-        turns: new AlwaysStoppedAnimation(90 / 360),
+        turns: const AlwaysStoppedAnimation(90 / 360),
         child: Center(
           child: Icon(
             Icons.more_horiz,
